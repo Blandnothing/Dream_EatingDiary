@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+/UserSettings/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
@@ -57,4 +58,7 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+.idea/.idea.Dream-EatingDiary/.idea/workspace.xml
+
 
