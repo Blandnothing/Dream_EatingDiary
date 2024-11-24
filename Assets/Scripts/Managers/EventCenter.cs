@@ -74,4 +74,6 @@ public class EventInfo<T> : IEventInfo
 }
 public static class EventName
 {
+    public const string ChangeResourse="changeResource";
+    
 }

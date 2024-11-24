@@ -12,7 +12,8 @@ public class TimerManager : MonoBehaviour
     {
         public float time;
         
-        private Dictionary<ResourceType,BigInteger> resourceConsumption;
+        
+        public resourceUnion resourceConsumption;
 
     } 
     
@@ -32,7 +33,7 @@ public class TimerManager : MonoBehaviour
             var effect = LevelToEffect[level];
             time = effect.time;
             //改变参数暂时留空(调用资源管理减少资源)
-            EventCenter.Instance.Invoke("changResource");
+            EventCenter.Instance.Invoke(EventName.ChangeResourse,effect.resourceConsumption);
         }
     }
     //总时间
