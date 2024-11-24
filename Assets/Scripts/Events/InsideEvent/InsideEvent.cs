@@ -7,7 +7,7 @@ public abstract class InsideEvent:BaseEvent
 {
 	public InsideEvent()
 	{
-		eventType = EventType.Map;
+		eventType = EventType.Level;
 	}
 	
 
