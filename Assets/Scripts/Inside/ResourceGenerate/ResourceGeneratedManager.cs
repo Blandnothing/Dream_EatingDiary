@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class  ResourceGeneratedManager : MonoBehaviour
+public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
 {
     //出生点
     [SerializeField] 

@@ -5,7 +5,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class InsideEventManager : MonoBehaviour
+public class InsideEventManager : SingletonMono<InsideEventManager>
 {
     public List<DefaultInsideEvent> DefaultInsideEvents=new ();
     
@@ -72,7 +72,7 @@ public class InsideEventManager : MonoBehaviour
             currentSum += insideEvent.CurrentWeight;
             if (RandomNum <= currentSum)
             {
-                insideEvent.happen();
+                insideEvent.Execute();
                 StopCoroutine(insideEvent.DownTime());
                 StartCoroutine(insideEvent.DownTime());
                 break;

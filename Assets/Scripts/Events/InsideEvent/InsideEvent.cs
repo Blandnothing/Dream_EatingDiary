@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class InsideEvent
+public abstract class InsideEvent:BaseEvent
 {
-	public abstract void happen();
+	public InsideEvent()
+	{
+		eventType = EventType.Map;
+	}
+	
 
 }

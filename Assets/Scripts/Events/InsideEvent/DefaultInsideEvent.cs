@@ -21,10 +21,8 @@
 			yield return new WaitForSeconds(AwaitTime) ;
 			CurrentWeight = DefaultWeight;
 		}
-		public override void happen()
+		public override void Execute()
 		{
-			
 			DownWeight();
-			
 		}
 	}
