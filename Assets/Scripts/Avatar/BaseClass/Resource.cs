@@ -14,7 +14,7 @@ public class Resource
 
 
 //资源集合(封装一下参数)
-public struct resourceUnion
+public class resourceUnion
 {
 	public Dictionary<ResourceType,BigInteger> resourceConsumption;
 }
