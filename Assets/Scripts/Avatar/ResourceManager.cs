@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,19 +15,34 @@ public class ResourceManager:Singleton<ResourceManager>
 
     void InitResource()
     {
+
+        _resourceCategoryDict = new Dictionary<ResourceType, ResourceCategory>();
+        // {
+        //     [ResourceType.Hunger] = ResourceCategory.Nightmare,
+        //     [ResourceType.Openness] = ResourceCategory.Nightmare,
+        //     
+        //     [ResourceType.Gold] = ResourceCategory.Mine,
+        //     [ResourceType.Silver] = ResourceCategory.Mine,
+        //     [ResourceType.Copper] = ResourceCategory.Mine,
+        //     [ResourceType.Gem] = ResourceCategory.Mine,
+        //     
+        //     
+        // };
         
-        _resourceCategoryDict = new Dictionary<ResourceType, ResourceCategory>
+        var rscType = Enum.GetValues(typeof(ResourceType));
+        var catType = Enum.GetValues(typeof(ResourceCategory));
+        for (int i = 0; i < catType.Length; i++)
         {
-            [ResourceType.Hunger] = ResourceCategory.Nightmare,
-            [ResourceType.Openness] = ResourceCategory.Nightmare,
-            
-            [ResourceType.Gold] = ResourceCategory.Mine,
-            [ResourceType.Silver] = ResourceCategory.Mine,
-            [ResourceType.Copper] = ResourceCategory.Mine,
-            [ResourceType.Gem] = ResourceCategory.Mine,
-            
-            
-        };
+            for (int j = 0; j < rscType.Length; j++)
+            {
+                if(!_resourceCategoryDict.ContainsKey((ResourceType)(rscType as IList)[j]))
+                    _resourceCategoryDict.Add((ResourceType)(rscType as IList)[j], (ResourceCategory)(catType as IList)[i]);
+                if ((catType as IList)[i].ToString() == (rscType as IList)[j].ToString())
+                {
+                    i++;
+                }
+            }
+        }
         _resourceDict = new Dictionary<ResourceType, int>();
         foreach (var i in _resourceCategoryDict.Keys)
         {
