@@ -75,6 +75,7 @@ public class KnapsackEditor :Editor
             {
                 knapsack.lattices[i]=  Instantiate(knapsack.latticePrefab,Selection.activeTransform);
                 knapsack.lattices[i].name = "lattice" + i;
+                //knapsack.lattices[i].transform.SetParent(knapsack.transform);
             }
         } 
         base.OnInspectorGUI();
