@@ -15,5 +15,6 @@ public class ChangeResource:DefaultInsideEvent
 		{
 			ResourceManager.Instance.ChangeResourceConut(resource.Key,resource.Value);
 		}
+		base.Execute();
 	}
 }

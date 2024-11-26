@@ -24,5 +24,6 @@
 		public override void Execute()
 		{
 			DownWeight();
+			base.Execute();
 		}
 	}
