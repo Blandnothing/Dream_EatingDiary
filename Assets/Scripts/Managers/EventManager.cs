@@ -19,8 +19,18 @@ public class EventManager : Singleton<EventManager>
 
     public void InitEvents()
     {
-        string path= Application.streamingAssetsPath + "/events.csv";
-        List<EventConfig> configs=CsvUtility.Read<EventConfig>(path);
+        string[] files = System.IO.Directory.GetFiles(Application.streamingAssetsPath + "/Config", "*.csv");
+
+        foreach (var path in files){
+            ParseConfig(CsvUtility.Read<EventConfig>(path));
+        }
+    }
+
+    void ParseConfig(List<EventConfig> configs)
+    {
+        if (configs == null)
+            return;
+        
         foreach (var config in configs)
         {
             if (!eventsCache.ContainsKey(config.name))

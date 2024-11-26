@@ -1,0 +1,3 @@
+﻿name,type,count
+debug_event,ResourceEvent,"Hungry,1"
+debug_event,TextEvent,"true,这是一个调试事件"
