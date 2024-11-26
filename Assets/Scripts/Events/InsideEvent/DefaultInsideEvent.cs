@@ -21,9 +21,8 @@
 			yield return new WaitForSeconds(AwaitTime) ;
 			CurrentWeight = DefaultWeight;
 		}
-		public override void Execute()
+		public DefaultInsideEvent()
 		{
-			DownWeight();
-			base.Execute();
+			AddListener(DownWeight);
 		}
 	}
