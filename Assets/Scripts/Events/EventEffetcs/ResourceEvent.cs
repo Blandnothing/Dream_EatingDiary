@@ -13,8 +13,9 @@ namespace GameEvent
 
         protected override void InitByConfig(EventConfig config)
         {
-            type = config.str1;
-            count = config.int1;
+            var args = config.args.Split(',');
+            type = args[0];
+            count = int.Parse(args[1]);
         }
 
         public override void OnExecute()

@@ -26,10 +26,6 @@ namespace GameEvent
     {
         public string name;
         public string type;
-        public string text;
-        public string str1;
-        public string str2;
-        public int int1;
-        public int int2;
+        public string args;
     }
 }
