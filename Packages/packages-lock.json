@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.bshsf.csvutility": {
+      "version": "https://github.com/Bian-Sh/CsvUtility-For-Unity.git?path=Packages/CsvUtility",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "3797cb93f2a2a45e761f008c385d01f8207471cb"
+    },
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f9fd769be7c634610f2a61aa914a1a55f34740e1"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.1",
       "depth": 1,
