@@ -10,7 +10,7 @@ namespace GameEvent
         private string type;
         private int count;
 
-
+        
         protected override void InitByConfig(EventConfig config)
         {
             var args = config.args.Split(',');

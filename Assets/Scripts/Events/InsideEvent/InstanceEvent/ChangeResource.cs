@@ -8,6 +8,7 @@ public class ChangeResource:DefaultInsideEvent
 	public ChangeResource(resourceUnion resourceChangeAmount)
 	{
 		this.resourceChangeAmount = resourceChangeAmount;
+		
 		AddListener(changeResourceByAmount);
 	}
 	public void changeResourceByAmount()

@@ -9,17 +9,18 @@ using UnityEngine.Events;
 public class TimerManager : SingletonMono<TimerManager>
 {  
     
-    //总时间
-    public float time ;
-    
-    //已耗时
+    //剩余时间
     public float currentTime=0f;
-
-    //
+    
     public void setTime(int num)
     {
-        time = num;
+        currentTime = num;
         
+    }
+
+    public void ChangeTime(int num)
+    {
+        currentTime += num;
     }
 
     private void Awake()
@@ -28,8 +29,8 @@ public class TimerManager : SingletonMono<TimerManager>
     }
     void Update()
     {
-        currentTime += Time.deltaTime;
-        if (currentTime - time >= 0.01f)
+        currentTime -= Time.deltaTime;
+        if (currentTime  < 0.01f)
         {
             EventCenter.Instance.Invoke(EventName.TimeRunOut);
         }
