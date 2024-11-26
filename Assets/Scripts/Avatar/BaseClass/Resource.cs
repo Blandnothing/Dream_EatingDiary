@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 //资源大类
@@ -28,5 +29,18 @@ public enum ResourceType{
     
     //Item
     Item
+}
+
+
+public class Resource 
+{
+    
+}
+
+
+//资源集合(封装一下参数)
+public class resourceUnion
+{
+	public Dictionary<ResourceType,int> resourceConsumption;
 }
 

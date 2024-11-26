@@ -74,4 +74,7 @@ public class EventInfo<T> : IEventInfo
 }
 public static class EventName
 {
+    public const string SetTime = "setTime";
+    public const string TimeRunOut = "timeRunOut";
+
 }
