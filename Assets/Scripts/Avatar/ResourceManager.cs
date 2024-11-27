@@ -68,6 +68,8 @@ public class ResourceManager:Singleton<ResourceManager>
             return;
         }
         _resourceDict[rscType] += count;
+        //更新仓库
+        Knapsack.Instance.addItem(rscType,count);
     }
     public int GetResourceCount(ResourceType rscType)
     {
@@ -77,5 +79,34 @@ public class ResourceManager:Singleton<ResourceManager>
             return 0;
         }
         return _resourceDict[rscType];
+    }
+
+    public bool TryChangeResource(ResourceType rscType,int count)
+    {
+        if (GetResourceCount(rscType) >= count)
+        {
+            ChangeResourceConut(rscType, count);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public bool TryChangeResources(resourceUnion resourceUnion)
+    {
+        foreach (var resuorce in resourceUnion.resourceConsumption)
+        {
+            if (GetResourceCount(resuorce.Key) < resuorce.Value)
+            {
+                return false;
+            }
+        }
+        foreach (var resuorce in resourceUnion.resourceConsumption)
+        {
+            ChangeResourceConut(resuorce.Key,resuorce.Value);
+        }
+
+        return true;
     }
 }

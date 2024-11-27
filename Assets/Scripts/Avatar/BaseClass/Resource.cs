@@ -16,19 +16,25 @@ public enum ResourceType{
     Null,
     
     //Nightmare
-    Hunger,         //饥饿度
-    Openness,       //意识开放度
-    Nightmare,      //结束标识符,不应该被使用
+    Hunger, //饥饿度
+    Openness,//意识开放度
+    
+    Nightmare,  //结束标识符,不应该被使用
     
     //Mine
     Gold,
     Silver,
     Copper,
     Gem,
+    
     Mine,
     
     //Item
-    Item
+    Dichotomy, //虚实切换  
+    Attract,//灵能吸引 
+    Accelerate,//加速
+    
+    Item,
 }
 
 
