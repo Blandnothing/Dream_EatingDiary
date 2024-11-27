@@ -38,9 +38,9 @@ public enum ResourceType{
 }
 
 
-public class Resource 
+public class Resource
 {
-    
+    public ResourceType resourceType;
 }
 
 
