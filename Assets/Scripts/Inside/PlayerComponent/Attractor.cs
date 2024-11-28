@@ -1,6 +1,7 @@
 ﻿
 	using System;
 	using System.Collections.Generic;
+	using DG.Tweening.Core.Enums;
 	using Unity.VisualScripting;
 	using UnityEngine;
 
@@ -20,15 +21,22 @@
 				Destroy(other.gameObject);
 			}
 		}
+		private void OnDrawGizmos()
+		{
+			Gizmos.DrawWireSphere(transform.position, RadiusDic[isBeginAttract]);
+		}
 		void Update()
 		{
-			var collider2Ds = Physics2D.OverlapCircleAll(transform.position,RadiusDic[isBeginAttract],LayerMask.NameToLayer("Resource"));
+			
+			var collider2Ds = Physics2D.OverlapCircleAll(transform.position,RadiusDic[isBeginAttract],1<<LayerMask.NameToLayer("Resource"));
 			foreach (var col in collider2Ds)
 			{
-				var rsp=col.gameObject.GetComponent<ResourceInstance>().rsp;
-				if (!col.gameObject.GetComponent<ResourceInstance>().isTriggered)
+				var resourceInstance = col.gameObject.GetComponent<ResourceInstance>();
+				var rsp=resourceInstance.rsp;
+				if (!resourceInstance.isTriggered)
 				{
-						ResourceManager.Instance.ChangeResourceConut(rsp,1);
+					resourceInstance.isTriggered = true;
+					ResourceManager.Instance.ChangeResourceConut(rsp,1);
 				}
 			}
 

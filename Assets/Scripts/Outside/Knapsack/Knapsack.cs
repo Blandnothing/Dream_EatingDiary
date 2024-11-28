@@ -36,7 +36,7 @@ public class Knapsack : SingletonMono<Knapsack>
         
     }
   
-    void Awake()
+    protected override void Awake()
     {
         InitItemToIndex();
         foreach (var (type,index) in TypetoIndexDic)
@@ -49,6 +49,7 @@ public class Knapsack : SingletonMono<Knapsack>
             }
            
         }
+        base.Awake();
 
     }
     public int GetItemCount(ResourceType resourceType)

@@ -87,13 +87,13 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
             for (int y = bottom; y <= top; y++)
             {
                 var position = positionDelta(new Vector2(x,y));
-                var cols=  Physics2D.OverlapBoxAll(position, new Vector2(0.4f, 0.4f), 0, LayerMask.NameToLayer("Ground"));
+                var cols=  Physics2D.OverlapBoxAll(position, new Vector2(0.4f, 0.4f), 0, 1<<LayerMask.NameToLayer("Ground"));
                 if (cols.Length > 0)
                 {
                     continue;
                 }
-                var GroundCols = Physics2D.Raycast(position,Vector2.down,ToGroundMaxDistance,LayerMask.NameToLayer("Ground"));
-                if (ReferenceEquals(null,GroundCols.collider))
+                var GroundCol = Physics2D.Raycast(position,Vector2.down,ToGroundMaxDistance,1<<LayerMask.NameToLayer("Ground"));
+                if (ReferenceEquals(null,GroundCol.collider))
                 {
                     continue;
                 }
@@ -165,9 +165,14 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
      
    }
     //具体生成资源
+    public ResourceInstance resourcePrefab;
    private void GenerateResourse(Vector2Int pos,ResourceType resourceType)
    {
-       
+      
+      ResourceInstance rspI= Instantiate(resourcePrefab);
+      rspI.transform.position = positionDelta(pos);
+      rspI.rsp = resourceType;
+      rspI.sr.sprite = Knapsack.Instance.TypeToItem[rspI.rsp].sprite;
    }
   
     
