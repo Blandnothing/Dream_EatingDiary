@@ -4,7 +4,7 @@ using GameEvent;
 using UnityEngine;
 namespace GameEvent
 {
-	public class TimeEvent:EventEffect
+	public class TimeEffect:EventEffect
     {
     	//值为1表示time为改变量，值为零表示将time为设置量
     	public int isDelta;

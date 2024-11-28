@@ -1,6 +1,6 @@
 ﻿namespace GameEvent
 {
-	public class TextEvent:EventEffect
+	public class TextEffect:EventEffect
 	{
 		private EText type;
 		private string text;

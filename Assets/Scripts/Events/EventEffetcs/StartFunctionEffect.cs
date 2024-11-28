@@ -1,6 +1,6 @@
 ﻿namespace GameEvent
 {
-	public class StopFunctionEvent:EventEffect
+	public class StartFunctionEffect:EventEffect
 	{
 		public ResourceType type;
 		protected override void InitByConfig(EventConfig config)
@@ -10,7 +10,7 @@
 		}
 		public override void OnExecute()
 		{
-			FunctionManager.Instance.StopFunction(type);
+			FunctionManager.Instance.StartFunction(type);
 		}
 	}
 }

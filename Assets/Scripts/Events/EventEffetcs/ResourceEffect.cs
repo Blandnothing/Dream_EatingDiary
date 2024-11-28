@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameEvent
 {
-    public class ResourceEvent : EventEffect
+    public class ResourceEffect : EventEffect
     {
         private string type;
         private int count;

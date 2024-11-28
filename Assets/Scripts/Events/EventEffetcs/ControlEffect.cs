@@ -7,7 +7,7 @@ namespace GameEvent
 		//移速，跳跃高度，击飞（传送），左右颠倒
 		moveSpeed,jumpHigh,transmission,reverse
 	}
-	public class ControlEvent:EventEffect
+	public class ControlEffect:EventEffect
 	{
 		public EControl type;
 		//moveSpeed:value1,
