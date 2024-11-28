@@ -45,3 +45,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Resource
+    uniqueID: 1970154477
+    locked: 0
