@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Cinemachine;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -53,6 +55,10 @@ public class PlayerController : SingletonMono<PlayerController>
         impulseSource = GetComponent<CinemachineImpulseSource>();
         prePos = transform.position;
         
+        OriginHighMax = jumpMax;
+        OriginSpeedMax = m_speed;
+
+
     }
     void Update()
     {
@@ -124,7 +130,11 @@ public class PlayerController : SingletonMono<PlayerController>
     }
     void GroundMovement()
     {
-
+            if (reverseTime > 0)
+             {
+             inputX = -inputX;
+             }
+            
             if (inputX > 0)
             {
                 GetComponent<SpriteRenderer>().flipX = false;
@@ -276,6 +286,70 @@ public class PlayerController : SingletonMono<PlayerController>
             GetComponent<SpriteRenderer>().color=(new Color(1, 1, 1, Mathf.Lerp(1, 0, deadTimer / deadTime)));
             yield return null;
         }
+    }
+
+    //改变高度效果
+    public float OriginHighMax;
+    public float SetHighTime;
+    public void SetHigh(float jumpHigh,float time)
+    {
+        jumpMax = jumpHigh;
+        SetHighTime = time;
+    }
+    public void  UpdateHigh()
+    {
+          if (SetHighTime > 0)
+          {
+              SetHighTime -= Time.deltaTime;
+          }
+          else
+          {
+              SetHighTime = 0;
+              jumpMax = OriginHighMax;
+          }
+    }
+    
+    //改变速度效果
+    public float OriginSpeedMax;
+    public float SetSpeedTime;
+    public void SetSpeed(float speed,float time)
+    {
+        m_speed = speed;
+        SetSpeedTime = time;
+    }
+    public void  UpdateSpeed()
+    {
+          if (SetSpeedTime > 0)
+          {
+              SetSpeedTime -= Time.deltaTime;
+          }
+          else
+          {
+              SetSpeedTime = 0;
+              m_speed = OriginSpeedMax;
+          }
+    }
+    
+    //左右颠倒效果
+    public float reverseTime;
+    public void SetReverse(float time)
+    {
+        reverseTime = time;
+    }
+    public void UpdateReverseTime()
+    {
+        reverseTime -= Time.deltaTime;
+        if (reverseTime < 0)
+        {
+            reverseTime = 0;
+        }
+
+    }
+    void update()
+    {
+      UpdateHigh();
+      UpdateSpeed();
+      UpdateReverseTime();
     }
     
 }

@@ -13,11 +13,14 @@ namespace GameEvent
 		//moveSpeed:value1,
 		//jumpHigh:value1,
 		public int value1;
+		//变动时间
+		public int value2;
 		protected override void InitByConfig(EventConfig config)
 		{
 			var args = config.args.Split(',');
 			 EControl.TryParse(args[0],out type);
 			 value1 = int.Parse(args[1]);
+			 value2=int.Parse(args[2]);
 
 		}
 		
@@ -26,13 +29,13 @@ namespace GameEvent
 			switch (type)
 			{
 				case EControl.moveSpeed:
-					//调用人物控制接口
+					PlayerController.Instance.SetSpeed(value1,value2);
 					break;
 				case EControl.jumpHigh:
-					//
+					PlayerController.Instance.SetHigh(value1,value2);
 					break;
 				case EControl.reverse:
-					//
+					PlayerController.Instance.SetReverse(value2);
 					break;
 			}
 		}
