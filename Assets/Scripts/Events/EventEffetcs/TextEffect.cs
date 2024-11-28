@@ -19,12 +19,14 @@
 					break;
 				case EText.eventPrompt:
 					break;
+				case EText.Toast:
+					break;
 			}
 		}
 	}
 
 	public enum EText
 	{
-		dialogue,eventPrompt
+		dialogue,eventPrompt,Toast
 	}
 }

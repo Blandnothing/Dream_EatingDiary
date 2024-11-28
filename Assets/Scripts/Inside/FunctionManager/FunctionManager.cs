@@ -88,8 +88,9 @@
 		}
 		
 		
-		void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
 			InitFunctionTime();
 			
 			EventCenter.Instance.AddEvent(EventName.TimeRunOut,endInside);

@@ -5,10 +5,10 @@ public class AttractFunction:Function
 
 	public override void StartFunction()
 	{
-		Attractor.Instance.enabled = true;
+		Attractor.Instance.isBeginAttract = true;
 	}
 	public override void StopFunction()
 	{
-		Attractor.Instance.enabled = false;
+		Attractor.Instance.isBeginAttract = false;
 	}
 }

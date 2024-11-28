@@ -70,6 +70,39 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
         res = (float)evaluateX * x + evaluateY * y;
         return (float)res;
     }
+    //生成可以生成资源的格点
+    [Header("地图范围")] public int left,right,top,bottom;
+    [Header("资源最大距地距离")] public int ToGroundMaxDistance;
+
+    //格子到实际坐标的转换
+    public Vector2 positionDelta(Vector2 position)
+    {
+        return position + new Vector2(0.5f,0.5f);
+    }
+    //生成可能生成资源的格子
+    private void InitCanGeneratedPositions()
+    {
+        for (int x = left; x<= right; x++)
+        {
+            for (int y = bottom; y <= top; y++)
+            {
+                var position = positionDelta(new Vector2(x,y));
+                var cols=  Physics2D.OverlapBoxAll(position, new Vector2(0.4f, 0.4f), 0, LayerMask.NameToLayer("Ground"));
+                if (cols.Length > 0)
+                {
+                    continue;
+                }
+                var GroundCols = Physics2D.Raycast(position,Vector2.down,ToGroundMaxDistance,LayerMask.NameToLayer("Ground"));
+                if (ReferenceEquals(null,GroundCols.collider))
+                {
+                    continue;
+                }
+                _canGeneratedPositions.Add(new Vector2Int(x,y));
+
+            }
+        }
+    }
+
     //生成各位置权重
    private void InitLevel()
     {
@@ -139,11 +172,12 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
   
     
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        InitCanGeneratedPositions();
         InitLevel();
         InitProbabilityDictionary();
-      
         CalculateResourse();
     }
 

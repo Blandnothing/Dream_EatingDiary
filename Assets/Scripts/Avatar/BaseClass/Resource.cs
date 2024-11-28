@@ -40,7 +40,7 @@ public enum ResourceType{
 
 public class Resource
 {
-    public ResourceType resourceType;
+    
 }
 
 

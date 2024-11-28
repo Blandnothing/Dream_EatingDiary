@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Cinemachine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : SingletonMono<PlayerController>
@@ -242,20 +243,21 @@ public class PlayerController : SingletonMono<PlayerController>
     IEnumerator Invincible()
     {
         gameObject.layer = LayerMask.NameToLayer("Invincible");
-        MeshRenderer mesh= GetComponent<MeshRenderer>();
-        mesh.material.SetFloat("_FillPhase", 0.5f);
+        //测试暂时注释
+        //MeshRenderer mesh= GetComponent<MeshRenderer>();
+        //mesh.material.SetFloat("_FillPhase", 0.5f);
         float invicibleTimer = 0;
         while (invicibleTimer<invincibleTime)
         {
             yield return null;
             invicibleTimer+=Time.deltaTime;
-            mesh.material.SetFloat("_FillPhase", Mathf.Lerp(0.5f,0,invicibleTimer/invincibleTime));
+            //mesh.material.SetFloat("_FillPhase", Mathf.Lerp(0.5f,0,invicibleTimer/invincibleTime));
         }
-        mesh.material.SetFloat("_FillPhase", 0);
+        //mesh.material.SetFloat("_FillPhase", 0);
         gameObject.layer = LayerMask.NameToLayer("Player");
     } 
-    public void GetHit(Vector2 direction, float attackPower)
-    {        
+    public void GetHit()
+    {  
         StopCoroutine(Invincible());
         StartCoroutine(Invincible());
     }

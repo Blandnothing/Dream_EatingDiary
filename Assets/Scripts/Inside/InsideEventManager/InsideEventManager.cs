@@ -82,9 +82,9 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
     }
     
     
-    private void Awake()
+    protected override void Awake()
     {
-       
+       base.Awake();
     }
     
     void Update()
