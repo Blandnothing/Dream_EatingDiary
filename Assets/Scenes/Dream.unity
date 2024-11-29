@@ -1324,26 +1324,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1255402450065264416, guid: 8939f85ee8dc6314e9816ac971f15a16, type: 3}
-      propertyPath: m_Name
-      value: PlayerLight
-      objectReference: {fileID: 0}
-    - target: {fileID: 5748805213793135109, guid: 8939f85ee8dc6314e9816ac971f15a16, type: 3}
-      propertyPath: m_Size.x
-      value: 1.046258
-      objectReference: {fileID: 0}
-    - target: {fileID: 5748805213793135109, guid: 8939f85ee8dc6314e9816ac971f15a16, type: 3}
-      propertyPath: m_Size.y
-      value: 1.6984584
-      objectReference: {fileID: 0}
-    - target: {fileID: 5748805213793135109, guid: 8939f85ee8dc6314e9816ac971f15a16, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.0072848797
-      objectReference: {fileID: 0}
-    - target: {fileID: 5748805213793135109, guid: 8939f85ee8dc6314e9816ac971f15a16, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.8529612
-      objectReference: {fileID: 0}
     - target: {fileID: 7621843693014946152, guid: 8939f85ee8dc6314e9816ac971f15a16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.08

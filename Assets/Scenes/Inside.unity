@@ -287,9 +287,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BrithPoint: {x: 0, y: 0}
   _canGeneratedPositions: []
+  _maxWeightLevel: 6
   _distanceLeastLevel: []
   _deafultProbabilityList: []
   _specialProbabilityList: []
+  evaluateX: 0.36
+  evaluateY: 0.64
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  ToGroundMaxDistance: 0
+  resourcePrefab: {fileID: 0}
 --- !u!4 &861527813
 Transform:
   m_ObjectHideFlags: 0
@@ -334,6 +343,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75b9112844751a49a35e304c5db5938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  awaitTime: 0
+  reduceWeightTime: 0
+  _defaultProbability: 0
 --- !u!4 &1874894490
 Transform:
   m_ObjectHideFlags: 0

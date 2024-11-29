@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3325202437924691023}
   - component: {fileID: 1725255112070392115}
   m_Layer: 7
-  m_Name: Light 2D (1)
+  m_Name: PlayerLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,6 +249,11 @@ MonoBehaviour:
   fallSpeed: 60
   fallMaxSpeed: 24
   isInteracted: 0
+  OriginHighMax: 0
+  SetHighTime: 0
+  OriginSpeedMax: 0
+  SetSpeedTime: 0
+  reverseTime: 0
 --- !u!70 &5748805213793135109
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -283,8 +288,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.052880988, y: 1.0503802}
-  m_Size: {x: 1.0537786, y: 1.7924676}
+  m_Offset: {x: -0.0072848797, y: 0.8529612}
+  m_Size: {x: 1.046258, y: 1.6984584}
   m_Direction: 0
 --- !u!50 &2783438336789653677
 Rigidbody2D:
