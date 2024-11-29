@@ -35,7 +35,7 @@ public class Knapsack : SingletonMono<Knapsack>
         }
     }
 
-    public void InitItemToIndex()
+    public void InitTypeToIndex()
     {
         var rscType = Enum.GetValues(typeof(ResourceType));
         var catType = Enum.GetValues(typeof(ResourceCategory));
@@ -65,7 +65,7 @@ public class Knapsack : SingletonMono<Knapsack>
     {  
         base.Awake();
         InitTypeToItem();
-        InitItemToIndex();
+        InitTypeToIndex();
         foreach (var (type,index) in TypetoIndexDic)
         {
             if (TypeToItem.ContainsKey(type))

@@ -7,6 +7,7 @@ using UnityEngine.Experimental.Audio;
 
 public class SynthesisManager :SingletonMono<SynthesisManager>
 {
+	//顺序：Dichotomy,Attract,Accelerate;
 	//合成道具对应的资源
 	public Dictionary<ResourceType,Dictionary<ResourceType,int>> SynthesisDic = new();
 	[SerializeField]
@@ -37,6 +38,7 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 			if (Consume(SynthesisDic[rsp]))
 			{
 				ResourceManager.Instance.ChangeResourceConut(rsp,1);
+				Debug.Log(rsp.ToString());
 			}
 
 		}
@@ -69,6 +71,7 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 			{
 				typeToColumn[i].value.ResourceNum[ResourceIndex.TypeToIndex[rsp.Key]].text = rsp.Value.ToString();
 			}
+			
 			var temRsp = typeToColumn[i].id;
 			typeToColumn[i].value.buttion.onClick.AddListener(()=>SynthesisItem(temRsp));
 		}
@@ -79,6 +82,7 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 		base.Awake();
 		
 		InitSynthesisDic();
+		
 		InitColumn();
 	}
 	void Update()

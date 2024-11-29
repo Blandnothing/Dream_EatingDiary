@@ -40,6 +40,13 @@
 			}
 				
 		}
+
+		public void InitFunction()
+		{
+			FunctionDic[ResourceType.Accelerate] = new AccelerateFunction();
+			FunctionDic[ResourceType.Attract] = new AttractFunction();
+			FunctionDic[ResourceType.Dichotomy] = new DichotomyFunction();
+		}
 		
 
 		//从背包处更新技能点数
@@ -48,10 +55,19 @@
 			foreach (var key in FunctionDic.Keys)
 			{
 				TimeDic[key] = ResourceManager.Instance.GetResourceCount(key);
+				if (TimeDic[key] != 0)
+				{
+					FunctionDic[key].Isable=true;
+				}
+				else
+				{
+					FunctionDic[key].Isable=false;
+				}
+				FunctionDic[key].IsStart = false;
 			}
 		}
 
-		//统计剩余道具更新背包
+		//统计剩余道具更新
 		public void endInside()
 		{
 			foreach (var key in FunctionDic.Keys)
@@ -87,25 +103,24 @@
 				FunctionDic[rsp].Isable=true;
 			}
 		}
-		
+
 		
 		protected override void Awake()
 		{
 			base.Awake();
-			InitFunctionTime();
 			
-			EventCenter.Instance.AddEvent(EventName.TimeRunOut,endInside);
+			InitFunction();
+			
+			InitFunctionTime();
+			//测试用注释(若不注释因为没设置timer的初始时间会使合成的技能点瞬间被吞掉)
+			//EventCenter.Instance.AddEvent(EventName.TimeRunOut,endInside);
 
 		}
-		
-	
-		
-		
 
 		private void Update()
 		{
 			
-               UpdateTime();
+			UpdateTime();
 			
 		}
 	}

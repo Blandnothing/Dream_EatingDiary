@@ -13,8 +13,8 @@
 
 		public DefaultInsideEvent(int defaultWeight)
 		{
-			this.DefaultWeight = DefaultWeight;
-			CurrentWeight = DefaultWeight;
+			this.DefaultWeight = defaultWeight;
+			CurrentWeight = defaultWeight;
 			AwaitTime = InsideEventManager.Instance.reduceWeightTime;
 		}
 

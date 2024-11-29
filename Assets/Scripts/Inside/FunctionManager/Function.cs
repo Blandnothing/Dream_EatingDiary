@@ -4,9 +4,9 @@
 
 	public abstract class Function
 	{
-		private bool isable;
+		private bool isable=false;
 
-		private bool isStart;
+		private bool isStart=false;
 		
 		public bool Isable { get; set; }
 		public bool IsStart{ get; set; }
@@ -20,6 +20,7 @@
 			isStart = true;
 			StartFunction();
 		}
+
 		
 		public void Stop()
         {
