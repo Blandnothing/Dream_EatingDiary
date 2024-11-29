@@ -47,7 +47,7 @@
 		{
 			foreach (var key in FunctionDic.Keys)
 			{
-				TimeDic[key] = Knapsack.Instance.GetItemCount(key);
+				TimeDic[key] = ResourceManager.Instance.GetResourceCount(key);
 			}
 		}
 
@@ -56,7 +56,8 @@
 		{
 			foreach (var key in FunctionDic.Keys)
 			{
-				Knapsack.Instance.SetItem(key,TimeDic[key]);
+				
+				ResourceManager.Instance.SetResourceCount(key,TimeDic[key]);
 			}
 			
 		}

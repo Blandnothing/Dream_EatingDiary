@@ -40,13 +40,19 @@ public enum ResourceType{
 
 public class Resource
 {
-    
+   
 }
 
-
-//资源集合(封装一下参数)
-public class resourceUnion
+public static class ResourceIndex
 {
-	public Dictionary<ResourceType,int> resourceConsumption;
+    public static Dictionary<ResourceType,int> TypeToIndex = new()
+        {
+            {ResourceType.Gold,0},
+            { ResourceType.Silver,1},
+            { ResourceType.Copper ,2},
+            { ResourceType.Gem ,3}
+        };
 }
 
+
+ 

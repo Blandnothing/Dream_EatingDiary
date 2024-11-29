@@ -1,22 +1,33 @@
 using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Experimental.Audio;
 
-public class SynthesisManager :Singleton<SynthesisManager>
+public class SynthesisManager :SingletonMono<SynthesisManager>
 {
 	//合成道具对应的资源
-	public Dictionary<ResourceType,resourceUnion> SynthesisDic=new();
+	public Dictionary<ResourceType,Dictionary<ResourceType,int>> SynthesisDic = new();
+	[SerializeField]
+	private List<KeyValuePair<ResourceType,List<KeyValuePair<ResourceType,int>>>> SynthesisList = new();
 
-	public bool Consume(resourceUnion resourceUnion)
+	public void  InitSynthesisDic()
 	{
-		foreach (var resourceKey in resourceUnion.resourceConsumption.Keys)
+		for (int i = 0; i < SynthesisList.Count; i++)
 		{
-			resourceUnion.resourceConsumption[resourceKey] *= -1;
+			Dictionary<ResourceType,int> temDic = new();
+			for (int j = 0; j < SynthesisList[i].value.Count; j++)
+			{
+				temDic.Add(SynthesisList[i].value[j].id, SynthesisList[i].value[j].value);
+			}
+			SynthesisDic.Add(SynthesisList[i].id, temDic);
 		}
+	}
 
-		return ResourceManager.Instance.TryChangeResources(resourceUnion);
-
+	public bool Consume(Dictionary<ResourceType,int> resourceUnion)
+	{
+		return ResourceManager.Instance.TryReduceResources(resourceUnion);
 	}
 
 	public void SynthesisItem(ResourceType rsp)
@@ -25,11 +36,56 @@ public class SynthesisManager :Singleton<SynthesisManager>
 		{
 			if (Consume(SynthesisDic[rsp]))
 			{
-				Knapsack.Instance.addItem(rsp,1);
+				ResourceManager.Instance.ChangeResourceConut(rsp,1);
 			}
-			
+
 		}
 		
 	}
+	[ System.Serializable]
+	private struct KeyValuePair<TA,TB>
+	{
+		public TA id;
+		public TB value;
+	}
+	[SerializeField]
+	private List<KeyValuePair<ResourceType,TopResource>> TypeToTop; 
+	public void UpdateTopResource()
+	{
+		for (int i = 0; i < TypeToTop.Count; i++)
+		{
+			TypeToTop[i].value.resourceNum.text = ResourceManager.Instance.GetResourceCount(TypeToTop[i].id).ToString();
+
+		}
+	}
+	[SerializeField] private List<KeyValuePair<ResourceType,SynthesisColumn>> typeToColumn;
+
+
+	public void InitColumn()
+	{
+		for (int i = 0; i < typeToColumn.Count; i++)
+		{
+			foreach (var rsp in SynthesisDic[typeToColumn[i].id])
+			{
+				typeToColumn[i].value.ResourceNum[ResourceIndex.TypeToIndex[rsp.Key]].text = rsp.Value.ToString();
+			}
+			var temRsp = typeToColumn[i].id;
+			typeToColumn[i].value.buttion.onClick.AddListener(()=>SynthesisItem(temRsp));
+		}
+	}
+
+	protected override void Awake()
+	{
+		base.Awake();
+		
+		InitSynthesisDic();
+		InitColumn();
+	}
+	void Update()
+	{
+		UpdateTopResource();
+		
+	}
+	
    
 }

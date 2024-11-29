@@ -68,8 +68,6 @@ public class ResourceManager:Singleton<ResourceManager>
             return;
         }
         _resourceDict[rscType] += count;
-        //更新仓库
-        Knapsack.Instance.addItem(rscType,count);
     }
     public int GetResourceCount(ResourceType rscType)
     {
@@ -93,20 +91,30 @@ public class ResourceManager:Singleton<ResourceManager>
             return false;
         }
     }
-    public bool TryChangeResources(resourceUnion resourceUnion)
+    public bool TryReduceResources(Dictionary<ResourceType,int> resourceUnion)
     {
-        foreach (var resuorce in resourceUnion.resourceConsumption)
+        foreach (var resuorce in resourceUnion)
         {
             if (GetResourceCount(resuorce.Key) < resuorce.Value)
             {
                 return false;
             }
         }
-        foreach (var resuorce in resourceUnion.resourceConsumption)
+        foreach (var resuorce in resourceUnion)
         {
-            ChangeResourceConut(resuorce.Key,resuorce.Value);
+            ChangeResourceConut(resuorce.Key,-resuorce.Value);
         }
 
         return true;
+    }
+
+    public void SetResourceCount(ResourceType rscType,int count)
+    {
+        if (!_resourceDict.ContainsKey(rscType))
+        {
+            Debug.LogWarning("Invalid Resource Type");
+            return;
+        }
+        _resourceDict[rscType] = count;
     }
 }

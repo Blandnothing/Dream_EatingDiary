@@ -62,7 +62,8 @@ public class Knapsack : SingletonMono<Knapsack>
     }
   
     protected override void Awake()
-    {
+    {  
+        base.Awake();
         InitTypeToItem();
         InitItemToIndex();
         foreach (var (type,index) in TypetoIndexDic)
@@ -85,25 +86,23 @@ public class Knapsack : SingletonMono<Knapsack>
             }
         }
         
-        base.Awake();
-
     }
-    public int GetItemCount(ResourceType resourceType)
-    {
-        return int.Parse(lattices[TypetoIndexDic[resourceType]].itemPrefab.itemNum.text);
-    }
+   
 
     public void SetItem(ResourceType itemResourceType,int num)
     {
         lattices[TypetoIndexDic[itemResourceType]].itemPrefab.itemNum.text = num.ToString();
     }
-    
-    public void addItem(ResourceType resourceType,int count)
+
+    private void Update()
     {
-        int itemCount = GetItemCount(resourceType);
-        SetItem(resourceType, itemCount + count);
-      
+        foreach (var type in TypetoIndexDic)
+        {
+            SetItem(type.Key,ResourceManager.Instance.GetResourceCount(type.Key));
+        }
     }
+
+
 }
 
 #if UNITY_EDITOR
@@ -125,7 +124,7 @@ public class KnapsackEditor :Editor
             {
                 knapsack.lattices[i]=  Instantiate(knapsack.latticePrefab,Selection.activeTransform);
                 knapsack.lattices[i].name = "lattice" + i;
-                //knapsack.lattices[i].transform.SetParent(knapsack.transform);
+                knapsack.lattices[i].transform.SetParent(knapsack.transform);
             }
         } 
         base.OnInspectorGUI();
