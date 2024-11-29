@@ -10,7 +10,7 @@ public class EventManager : Singleton<EventManager>
 {
     
     
-    Dictionary<string,BaseEvent> eventsCache = new Dictionary<string, BaseEvent>();
+    public Dictionary<string,BaseEvent> eventsCache = new Dictionary<string, BaseEvent>();
 
     public EventManager()
     {

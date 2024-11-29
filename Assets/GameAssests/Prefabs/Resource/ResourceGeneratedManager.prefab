@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7149572491594661724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1677195357306388771}
+  - component: {fileID: 3721296009411934134}
+  m_Layer: 0
+  m_Name: ResourceGeneratedManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1677195357306388771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149572491594661724}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3721296009411934134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149572491594661724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9171833c0c8b46b6fde9afaa19239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BrithPoint: {x: 0, y: 0}
+  _canGeneratedPositions: []
+  _maxWeightLevel: 6
+  _distanceLeastLevel:
+  - id:
+      id: 0
+      value: 10
+    value: 0
+  - id:
+      id: 15
+      value: 25
+    value: 1
+  - id:
+      id: 25
+      value: 40
+    value: 3
+  - id:
+      id: 48
+      value: 56
+    value: 5
+  - id:
+      id: 56
+      value: 68
+    value: 2
+  - id:
+      id: 68
+      value: 1000
+    value: 0
+  _deafultProbabilityList:
+  - id: 4
+    value: 15
+  - id: 5
+    value: 26
+  - id: 6
+    value: 50
+  - id: 7
+    value: 9
+  _specialProbabilityList: []
+  evaluateX: 0.36
+  evaluateY: 0.64
+  left: -50
+  right: 50
+  top: 50
+  bottom: -50
+  ToGroundMaxDistance: 3
+  resourcePrefab: {fileID: 0}

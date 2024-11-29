@@ -12,20 +12,21 @@ public class TimerManager : SingletonMono<TimerManager>
     //剩余时间
     public float currentTime=0f;
     
-    public void setTime(int num)
+    public void setTime(float num)
     {
         currentTime = num;
         
     }
 
-    public void ChangeTime(int num)
+    public void ChangeTime(float num)
     {
-        currentTime += num;
+        currentTime =currentTime+num;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        EventCenter.Instance.AddEvent(EventName.SetTime,new UnityAction<int>(setTime));
+        base.Awake();
+        EventCenter.Instance.AddEvent(EventName.SetTime,new UnityAction<float>(setTime));
     }
     void Update()
     {

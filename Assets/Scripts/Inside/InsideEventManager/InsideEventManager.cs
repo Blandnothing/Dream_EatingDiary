@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameEvent;
 using UnityEditor.SearchService;
 using UnityEngine;
+using zFramework.Extension;
 using Random = UnityEngine.Random;
 
 public class InsideEventManager : SingletonMono<InsideEventManager>
 {
-    public List<DefaultInsideEvent> DefaultInsideEvents=new ();
+    public Dictionary<string,DefaultInsideEvent> DefaultInsideEvents=new ();
     
 
     //事件权重之和
@@ -16,6 +18,10 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
     //触发时间间隔
     [SerializeField]
     private float awaitTime;
+    
+    //消减权重时间
+    [SerializeField]
+    public float reduceWeightTime;
     
     //触发事件概率百分比
     [SerializeField]
@@ -63,18 +69,18 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
         _sumEventWeights = 0;
         foreach (var insideEvent in DefaultInsideEvents)
         {
-            _sumEventWeights += insideEvent.CurrentWeight;
+            _sumEventWeights += insideEvent.Value.CurrentWeight;
         }
         var RandomNum = UnityEngine.Random.Range(1,_sumEventWeights + 1);
         var currentSum = 0;
         foreach (var insideEvent in DefaultInsideEvents)
         {
-            currentSum += insideEvent.CurrentWeight;
+            currentSum += insideEvent.Value.CurrentWeight;
             if (RandomNum <= currentSum)
             {
-                insideEvent.Execute();
-                StopCoroutine(insideEvent.DownTime());
-                StartCoroutine(insideEvent.DownTime());
+                insideEvent.Value.Execute();
+                StopCoroutine(insideEvent.Value.DownTime());
+                StartCoroutine(insideEvent.Value.DownTime());
                 break;
             }
         }
@@ -82,13 +88,48 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
     }
     
     
-    private void Awake()
+    protected override void Awake()
     {
-       
+       base.Awake();
     }
     
     void Update()
     {
         StartCoroutine(EventPolling());
     }
+    
+    // public InsideEventManager(){
+    //     InitEvents();
+    // }
+
+    public class InsideEventConfig
+    {
+        public string name;
+        public int weight;
+        public string  baseEventName;
+    }
+
+    public void InitEvents()
+    {
+        string[] files = System.IO.Directory.GetFiles(Application.streamingAssetsPath + "/InsideEventConfig", "*.csv");
+    
+        foreach (var path in files){
+            ParseConfig(CsvUtility.Read<InsideEventConfig>(path));
+        }
+    }
+
+    void ParseConfig(List<InsideEventConfig> configs)
+    {
+        if (configs == null)
+            return;
+        
+        foreach (var config in configs)
+        {
+            if (!DefaultInsideEvents.ContainsKey(config.name))
+                DefaultInsideEvents[config.name] = new DefaultInsideEvent(config.weight);
+            DefaultInsideEvents[config.name]._baseEvent = EventManager.Instance.eventsCache[config.baseEventName];
+
+        }
+    }
 }
+

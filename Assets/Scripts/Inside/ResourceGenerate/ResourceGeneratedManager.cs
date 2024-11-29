@@ -16,17 +16,20 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
     //每个位置的生成权重
     private Dictionary<Vector2Int,int> _postionWeights=new ();
     //最大权重
-    private int _maxWeightLevel = 7;
-    //离出生点一定距离以外的最低权重
+    public  int _maxWeightLevel = 6;
+    //离出生点一定距离以外的最大权重
     [SerializeField] 
-    private List<float> _distanceLeastLevel=new ();
-    //各权重对应没有资源的概率百分比
-    private Dictionary<int,int> _weightNoneProbability = new ();
-    //特殊点自定义没有资源概率百分比
-    private Dictionary<Vector2Int,int> _specialWeightNoneProbability = new ();
+    public  List<KeyValuePair<KeyValuePair<int,int>,int>> _distanceLeastLevel=new ();
+    //各权重对应有资源的概率百分比
+    private Dictionary<int,int> _weightProbability = new ()
+    {
+        {0,5},{1,15},{2,35},{3,50},{4,75},{5,100}
+    };
+    //特殊点自定义有资源概率百分比
+    private Dictionary<Vector2Int,int> _specialWeightProbability = new ();
     
     [ System.Serializable]
-    private struct KeyValuePair<TA,TB>
+    public struct KeyValuePair<TA,TB>
     {
         public TA id;
         public TB value;
@@ -60,16 +63,49 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
         }
     }
     //评估系数
-    [SerializeField] private float evaluateX = 0.5f,evaluateY = 1f;
+    [SerializeField] private float evaluateX = 0.36f,evaluateY = 0.64f;
     //评估函数
     private float EvaluatePosition(Vector2Int position)
     {
         double res = 0f;
         var x = Math.Pow(position.x - BrithPoint.x,2);
         var y = Math.Pow(position.y - BrithPoint.y,2);
-        res = (float)evaluateX * x + evaluateY * y;
+        res = (float)Math.Sqrt(evaluateX * x + evaluateY * y);
         return (float)res;
     }
+    //生成可以生成资源的格点
+    [Header("地图范围")] public int left,right,top,bottom;
+    [Header("资源最大距地距离")] public int ToGroundMaxDistance;
+
+    //格子到实际坐标的转换
+    public Vector2 positionDelta(Vector2 position)
+    {
+        return position + new Vector2(0.5f,0.5f);
+    }
+    //生成可能生成资源的格子
+    private void InitCanGeneratedPositions()
+    {
+        for (int x = left; x<= right; x++)
+        {
+            for (int y = bottom; y <= top; y++)
+            {
+                var position = positionDelta(new Vector2(x,y));
+                var cols=  Physics2D.OverlapBoxAll(position, new Vector2(0.4f, 0.4f), 0, 1<<LayerMask.NameToLayer("Ground"));
+                if (cols.Length > 0)
+                {
+                    continue;
+                }
+                var GroundCol = Physics2D.Raycast(position,Vector2.down,ToGroundMaxDistance,1<<LayerMask.NameToLayer("Ground"));
+                if (ReferenceEquals(null,GroundCol.collider))
+                {
+                    continue;
+                }
+                _canGeneratedPositions.Add(new Vector2Int(x,y));
+
+            }
+        }
+    }
+
     //生成各位置权重
    private void InitLevel()
     {
@@ -79,17 +115,14 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
             var leastLevel = 0;
             for (int slevel = 0; slevel < _maxWeightLevel; slevel++)
             {
-                if (positionDistance < _distanceLeastLevel[slevel])
+                if (positionDistance <= _distanceLeastLevel[slevel].id.value&&positionDistance>_distanceLeastLevel[slevel].id.id)
                 {
-                    leastLevel = slevel;
-                }
-                else
-                {
-                    break;
+                    leastLevel = _distanceLeastLevel[slevel].value;
                 }
             }
-            var level = UnityEngine.Random.Range(leastLevel,_maxWeightLevel);
+            var level = UnityEngine.Random.Range(0,leastLevel);
             _postionWeights[pos] = level;
+           
         }
     }
    
@@ -98,13 +131,13 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
    {
        foreach (var pos in _canGeneratedPositions)
        {
-           var noneResource = _postionWeights[pos];
-           if (_specialWeightNoneProbability.ContainsKey(pos))
+           var haveResource = _weightProbability[_postionWeights[pos]];
+           if (_specialWeightProbability.ContainsKey(pos))
            {
-               noneResource = _specialWeightNoneProbability[pos];
+               haveResource = _specialWeightProbability[pos];
            }
            int randomToNone = UnityEngine.Random.Range(0,101);
-           if (randomToNone <=noneResource)
+           if (randomToNone >haveResource)
            {
                continue;
            }
@@ -132,18 +165,24 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
      
    }
     //具体生成资源
+    public ResourceInstance resourcePrefab;
    private void GenerateResourse(Vector2Int pos,ResourceType resourceType)
    {
-       
+      
+      ResourceInstance rspI= Instantiate(resourcePrefab);
+      rspI.transform.position = positionDelta(pos);
+      rspI.rsp = resourceType;
+      //rspI.sr.sprite = Knapsack.Instance.TypeToItem[rspI.rsp].sprite;
    }
   
     
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        InitCanGeneratedPositions();
         InitLevel();
         InitProbabilityDictionary();
-      
         CalculateResourse();
     }
 

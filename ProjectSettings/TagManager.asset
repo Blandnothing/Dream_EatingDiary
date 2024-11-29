@@ -3,21 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Resource
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Resource
   - Water
   - UI
   - Ground
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Invincible
+  - Organ
+  - Knapsack
+  - Synthesis
+  - Text
   - 
   - 
   - 
@@ -43,4 +44,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Resource
+    uniqueID: 1970154477
     locked: 0
