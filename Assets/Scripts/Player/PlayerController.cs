@@ -88,6 +88,19 @@ public class PlayerController : SingletonMono<PlayerController>
         }
     }
 
+    public void OnAttract(InputValue value)
+    {
+        
+    }
+    public void OnDichotomy(InputValue value)
+    {
+        
+    }
+    public void OnAccerlerate(InputValue value)
+    {
+        
+    }
+
     public void OnInteract(InputValue value)
     {
         isInteracted = value.isPressed;
