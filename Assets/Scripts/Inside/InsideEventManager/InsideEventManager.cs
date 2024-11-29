@@ -98,9 +98,9 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
         StartCoroutine(EventPolling());
     }
     
-    public InsideEventManager(){
-        InitEvents();
-    }
+    // public InsideEventManager(){
+    //     InitEvents();
+    // }
 
     public class InsideEventConfig
     {
@@ -112,7 +112,7 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
     public void InitEvents()
     {
         string[] files = System.IO.Directory.GetFiles(Application.streamingAssetsPath + "/InsideEventConfig", "*.csv");
-
+    
         foreach (var path in files){
             ParseConfig(CsvUtility.Read<InsideEventConfig>(path));
         }

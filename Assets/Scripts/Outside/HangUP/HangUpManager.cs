@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class HangUpManager : MonoBehaviour
 {
-    
+    //time为每次改变资源的时间间隔，timer为计时器
     public float hangerTime;
     public float hangerTimer;
     //最大饥饿值
-    public int maxHanger;
+    public int maxHanger=1000;
     //每次饥饿值增量
-    public int hangerDelta;
+    public int hangerDelta=5;
     public void HangerHandler()
     {
          ResourceManager.Instance.ChangeResourceConut(ResourceType.Hunger,hangerDelta);
@@ -26,13 +26,20 @@ public class HangUpManager : MonoBehaviour
 
     public float addResourceTime;
     public float addResourceTimer;
-    public resourceUnion resourceDelta;
+    public Dictionary<ResourceType,int> resourceDelta =new(){
+        { ResourceType.Gold ,4},
+        { ResourceType.Silver ,4},
+        { ResourceType.Copper ,4},
+        { ResourceType.Gem ,4}
+    };
+    
+    
 
     public void  AddResourceHandler()
     {
         var openness = ResourceManager.Instance.GetResourceCount(ResourceType.Openness);
         var addCoefficient = (int)((float)openness / 100 + 1);
-        foreach (var resource in resourceDelta.resourceConsumption)
+        foreach (var resource in resourceDelta)
         {
             int val = resource.Value * addCoefficient;
             ResourceManager.Instance.ChangeResourceConut(resource.Key,val);
@@ -51,7 +58,7 @@ public class HangUpManager : MonoBehaviour
 
     private void Awake()
     {
-        hangerTime = addResourceTime = 0f;
+        hangerTimer = addResourceTimer = 0f;
     }
     void Update()
     {
