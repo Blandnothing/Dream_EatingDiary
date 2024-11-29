@@ -1,20 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 public class Knapsack : SingletonMono<Knapsack>
 {
+
+    public TextMeshProUGUI Description;
+   
     [SerializeField] 
     public Lattice latticePrefab;
      public Lattice[] lattices;
      
     [SerializeField]
     public int latticeNum;
-
-    public ItemPrefab itemPrefab;
+    
 
     public Dictionary<ResourceType,int> TypetoIndexDic = new();
     
@@ -74,6 +77,8 @@ public class Knapsack : SingletonMono<Knapsack>
                 
                  // lattices[index].itemPrefab.itemName = TypeToItem[type].itemName;
                  // lattices[index].itemPrefab.itemImage.sprite = TypeToItem[type].sprite;
+                 lattices[index].itemPrefab.description = TypeToItem[type].description;
+                 lattices[index].itemPrefab.TextDescription = Description;
                  lattices[index].itemPrefab.itemNum.text = 0.ToString();
             }
            
