@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public abstract class InsideEvent
 {
-	private BaseEvent _baseEvent;
+	public BaseEvent _baseEvent;
 	
 	protected void AddListener (UnityAction eventEffect)
 	{

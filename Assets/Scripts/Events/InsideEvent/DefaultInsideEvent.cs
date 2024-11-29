@@ -4,12 +4,19 @@
 	using UnityEngine;
 	using UnityEngine.Networking;
 
-	public abstract class DefaultInsideEvent:InsideEvent
+	public  class DefaultInsideEvent:InsideEvent
 	{
 
 		public int DefaultWeight;
 		public int CurrentWeight;
-		public int  AwaitTime;
+		public float  AwaitTime;
+
+		public DefaultInsideEvent(int defaultWeight)
+		{
+			this.DefaultWeight = DefaultWeight;
+			CurrentWeight = DefaultWeight;
+			AwaitTime = InsideEventManager.Instance.reduceWeightTime;
+		}
 
 		public void  DownWeight()
 		{
