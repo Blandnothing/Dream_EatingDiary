@@ -21,7 +21,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "DownJump",
@@ -45,10 +45,12 @@
                     "name": "IsJumping",
                     "type": "Value",
                     "id": "a0ccdf9f-b316-4eab-b605-6d33a5d8e39b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Digital",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
                     "name": "Attract",
                     "type": "Button",
                     "id": "37a9f284-6748-42ea-ad79-baa8dfeb1cf2",

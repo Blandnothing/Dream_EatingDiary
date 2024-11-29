@@ -242,17 +242,17 @@ public class PlayerController : SingletonMono<PlayerController>
             if( body2d.velocity.y < curJumpSpeed)
                 body2d.velocityY = Mathf.Min(jumpAcceration * Time.fixedDeltaTime + body2d.velocityY,curJumpSpeed);
             UpdateJump();
-            Debug.Log("1\n"+dis);
+            //Debug.Log("1\n"+dis);
             yield return new WaitForFixedUpdate();
         }
         body2d.velocityY = Mathf.Min(body2d.velocityY,curJumpSpeed);
-        Debug.Log(jumpPressing);
+        //Debug.Log(jumpPressing);
         while (jumpPressing && dis < curJumpMax)
         {
             dis = transform.position.y - startJumpPos;
             body2d.velocity = new Vector2(body2d.velocity.x, curJumpSpeed);
             UpdateJump();
-            Debug.Log("2\n"+dis);
+            //Debug.Log("2\n"+dis);
             yield return new WaitForFixedUpdate();
         }
         // slow down
