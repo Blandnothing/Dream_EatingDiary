@@ -8,4 +8,5 @@ public class Item : ScriptableObject
    public ResourceType resourceType;
    public string itemName;
    public Sprite sprite;
+   public string description;
 }
