@@ -14,9 +14,11 @@ public class PlayerController : SingletonMono<PlayerController>
 {
     private Rigidbody2D body2d;
     private Animator animator;
+    private Collider2D collider2d;
     CinemachineImpulseSource impulseSource;
    
     //移动
+    private bool isUpGround;       //是否顶墙
     private bool isGround;         //是否在地面上，用于跳跃
     private bool isPlatform;       //是否在平台上，用于跳下平台
     [SerializeField] LayerMask groundLayer;
@@ -57,6 +59,7 @@ public class PlayerController : SingletonMono<PlayerController>
         base.Awake();
         body2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        collider2d = GetComponent<Collider2D>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
         prePos = transform.position;
         
@@ -135,7 +138,18 @@ public class PlayerController : SingletonMono<PlayerController>
 
     void CheckGround()
     {
-        var colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.7f, 0.1f), 0, groundLayer);
+        var colliders = Physics2D.OverlapBoxAll(transform.position+collider2d.bounds.size.y*Vector3.up, new Vector2(1.7f, 0.1f), 0, groundLayer);
+        isUpGround = false;
+        foreach (var col in colliders)
+        {
+            if (!col.GetComponent<PlatformEffector2D>())
+            {
+                isUpGround = true;
+                break;
+            }
+        }
+        
+        colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.7f, 0.1f), 0, groundLayer);
         isGround = colliders.Length > 0;
         animator.SetBool("isGround",isGround);
         foreach (var collider in colliders)
@@ -230,13 +244,13 @@ public class PlayerController : SingletonMono<PlayerController>
         while (dis <= curJumpMin)
         {
             
-            //if (!CheckUpMove())   //返回false说明撞到墙，结束跳跃
-            //{
-            //    Velocity.y = 0;
-            //    isIntroJump = false;
-            //    isMove = true;
-            //    yield break;
-            //}
+            if (isUpGround)   //返回false说明撞到墙，结束跳跃
+            {
+                body2d.velocityY = 0;
+                isJump = false;
+                body2d.gravityScale = 1;
+                yield break;
+            }
             //获取当前角色相对于初始跳跃时的高度
             dis = transform.position.y - startJumpPos;
             if( body2d.velocity.y < curJumpSpeed)
@@ -249,6 +263,14 @@ public class PlayerController : SingletonMono<PlayerController>
         //Debug.Log(jumpPressing);
         while (jumpPressing && dis < curJumpMax)
         {
+            if (isUpGround)   //返回false说明撞到墙，结束跳跃
+            {
+                body2d.velocityY = 0;
+                isJump = false;
+                body2d.gravityScale = 1;
+                yield break;
+            }
+            
             dis = transform.position.y - startJumpPos;
             body2d.velocity = new Vector2(body2d.velocity.x, curJumpSpeed);
             UpdateJump();
