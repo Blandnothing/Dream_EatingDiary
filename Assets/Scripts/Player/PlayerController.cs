@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -8,7 +9,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : SingletonMono<PlayerController>
 {
-    private Rigidbody2D m_body2d;
+    private Rigidbody2D body2d;
+    private Animator animator;
     CinemachineImpulseSource impulseSource;
    
     //移动
@@ -27,14 +29,16 @@ public class PlayerController : SingletonMono<PlayerController>
     //跳跃
     public int maxJumpCount = 1;
     private int jumpCount;          //可跳跃次数
-    private bool jumpPressed;
+    private bool jumpPressed;       //按下跳跃按钮
+    private bool jumpPressing;     //按住跳跃按钮
     private bool downJumpPressed;
     private bool isJump;
     private bool isDownJump;
     bool isFalling;       //是否下落
     [SerializeField,Header("跳跃的最大高度")] float jumpMax = 2.5f;
     [SerializeField, Header("跳跃的最小高度")] float jumpMin = 0.5f;
-    [SerializeField,Header("跳跃速度")] float jumpSpeed = 18;
+    [SerializeField,Header("跳跃最大速度")] float jumpSpeed = 18;
+    [SerializeField,Header("跳跃加速度")] float jumpAcceration = 10;
     [SerializeField,Header("跳跃高度超过跳跃最大高度时的降落速度")] float slowFallSpeed=100f;
     [SerializeField,Header("跳跃高度小于跳跃最大高度时的降落速度")] float FastFallSpeed=200f;
     [SerializeField,Header("落下阶段的降落加速度")] float fallSpeed=150f;
@@ -48,7 +52,8 @@ public class PlayerController : SingletonMono<PlayerController>
     protected override void Awake()
     {
         base.Awake();
-        m_body2d = GetComponent<Rigidbody2D>();
+        body2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
         prePos = transform.position;
         
@@ -56,7 +61,7 @@ public class PlayerController : SingletonMono<PlayerController>
     void Update()
     {
         if (isDeath) return;
-        
+        UpdateAnim();
     }
 
     public void OnMovement(InputValue value)
@@ -70,6 +75,11 @@ public class PlayerController : SingletonMono<PlayerController>
         {
             jumpPressed = true;
         }
+    }
+
+    public void OnIsJumping(InputValue value)
+    {
+        jumpPressing = value.isPressed;
     }
 
     public void OnDownJump(InputValue value)
@@ -88,17 +98,26 @@ public class PlayerController : SingletonMono<PlayerController>
     private void FixedUpdate()
     {
         CheckGround();
-        isFalling = m_body2d.velocity.y < -0.01;
 
         GroundMovement();
         Jump();
         DownJump();
+        
+    }
+
+    private void UpdateAnim()
+    {
+        animator.SetFloat("XSpeed", Mathf.Abs(body2d.velocity.x));
+        animator.SetFloat("YSpeed",body2d.velocity.y);
+        isFalling = !isGround && body2d.velocity.y < -0.5;
+        animator.SetBool("IsFalling",isFalling);
     }
 
     void CheckGround()
     {
-        var colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.7f, 0.3f), 0, groundLayer);
+        var colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.7f, 0.1f), 0, groundLayer);
         isGround = colliders.Length > 0;
+        animator.SetBool("isGround",isGround);
         foreach (var collider in colliders)
         {
             var platform = collider.GetComponent<PlatformEffector2D>();
@@ -127,16 +146,16 @@ public class PlayerController : SingletonMono<PlayerController>
             if (inputX > 0)
             {
                 GetComponent<SpriteRenderer>().flipX = false;
-                m_body2d.velocity=new Vector2(Mathf.Min(m_speed * Time.fixedDeltaTime / accelerateTime + m_body2d.velocity.x,m_speed), m_body2d.velocity.y);
+                body2d.velocity=new Vector2(Mathf.Min(m_speed * Time.fixedDeltaTime / accelerateTime + body2d.velocity.x,m_speed), body2d.velocity.y);
             }
             else if (inputX < 0)
             {
                 GetComponent<SpriteRenderer>().flipX = true;
-                m_body2d.velocity=new Vector2(Mathf.Max(-m_speed * Time.fixedDeltaTime / accelerateTime + m_body2d.velocity.x,-m_speed), m_body2d.velocity.y);
+                body2d.velocity=new Vector2(Mathf.Max(-m_speed * Time.fixedDeltaTime / accelerateTime + body2d.velocity.x,-m_speed), body2d.velocity.y);
             }
             else
             {
-                m_body2d.velocity = new Vector2(Mathf.MoveTowards(m_body2d.velocity.x,0,m_speed*Time.fixedDeltaTime/decelerateTIme), m_body2d.velocity.y);
+                body2d.velocity = new Vector2(Mathf.MoveTowards(body2d.velocity.x,0,m_speed*Time.fixedDeltaTime/decelerateTIme), body2d.velocity.y);
             }
         
     }
@@ -153,9 +172,9 @@ public class PlayerController : SingletonMono<PlayerController>
             graceTimer-=Time.fixedDeltaTime;
         }
         
-        if (jumpPressed && (isGround  || graceTimer>0))     //地面起跳
+        if (!isJump && jumpPressed && (isGround  || graceTimer>0))     //地面起跳
         {
-            isJump = true;
+           
             StopCoroutine(IntroJump());
             StartCoroutine(IntroJump());
             jumpCount--;
@@ -163,11 +182,15 @@ public class PlayerController : SingletonMono<PlayerController>
             graceTimer = 0;
         }else if(jumpPressed && jumpCount > 0 && isJump)       //空中起跳
         {
+            body2d.velocityY=0;
             StopCoroutine(IntroJump());
             StartCoroutine(IntroJump());
             jumpCount--;
             jumpPressed = false;
-        } 
+        }
+
+        if(!isJump)
+            jumpPressed = false;
     }
     IEnumerator IntroJump()
     {
@@ -177,8 +200,12 @@ public class PlayerController : SingletonMono<PlayerController>
         float curJumpMin = jumpMin;
         float curJumpMax = jumpMax;
         float curJumpSpeed = jumpSpeed;
-        while (dis <= curJumpMin && m_body2d.velocity.y < curJumpSpeed)
+        body2d.gravityScale = 0;
+        UpdateJump();
+        animator.SetTrigger("Jump");
+        while (dis <= curJumpMin)
         {
+            
             //if (!CheckUpMove())   //返回false说明撞到墙，结束跳跃
             //{
             //    Velocity.y = 0;
@@ -188,45 +215,59 @@ public class PlayerController : SingletonMono<PlayerController>
             //}
             //获取当前角色相对于初始跳跃时的高度
             dis = transform.position.y - startJumpPos;
-            m_body2d.velocity += 240 * Time.fixedDeltaTime*Vector2.up;
+            if( body2d.velocity.y < curJumpSpeed)
+                body2d.velocityY = Mathf.Min(jumpAcceration * Time.fixedDeltaTime + body2d.velocityY,curJumpSpeed);
+            UpdateJump();
+            Debug.Log("1\n"+dis);
             yield return new WaitForFixedUpdate();
         }
-        m_body2d.velocity = new Vector2(m_body2d.velocity.x, curJumpSpeed);
-        while (Input.GetButton("Jump") && dis < curJumpMax)
+        body2d.velocityY = Mathf.Min(body2d.velocityY,curJumpSpeed);
+        Debug.Log(jumpPressing);
+        while (jumpPressing && dis < curJumpMax)
         {
             dis = transform.position.y - startJumpPos;
-            m_body2d.velocity = new Vector2(m_body2d.velocity.x, curJumpSpeed);
+            body2d.velocity = new Vector2(body2d.velocity.x, curJumpSpeed);
+            UpdateJump();
+            Debug.Log("2\n"+dis);
             yield return new WaitForFixedUpdate();
         }
         // slow down
-        while (m_body2d.velocity.y > 0)
+        while (body2d.velocity.y > 0)
         {
-            if (dis > jumpMax)
+            if (dis >= jumpMax)
             {
-                m_body2d.velocity -= slowFallSpeed * Time.fixedDeltaTime*Vector2.up;
+                body2d.velocity -= slowFallSpeed * Time.fixedDeltaTime*Vector2.up;
             }
             else
             {
-                m_body2d.velocity -= FastFallSpeed* Time.fixedDeltaTime * Vector2.up;
+                body2d.velocity -= FastFallSpeed* Time.fixedDeltaTime * Vector2.up;
             }
             yield return new WaitForFixedUpdate();
         }
         // fall down
-        m_body2d.velocity = new Vector2(m_body2d.velocity.x, 0);
+        body2d.velocity = new Vector2(body2d.velocity.x, 0);
         while (!isGround)
         {
-            m_body2d.velocity -= fallSpeed * Vector2.up*Time.fixedDeltaTime;
-            m_body2d.velocity = new Vector2(m_body2d.velocity.x, Mathf.Clamp(m_body2d.velocity.y, -fallMaxSpeed, m_body2d.velocity.y));
+            body2d.velocity -= fallSpeed * Vector2.up*Time.fixedDeltaTime;
+            body2d.velocity = new Vector2(body2d.velocity.x, Mathf.Clamp(body2d.velocity.y, -fallMaxSpeed, body2d.velocity.y));
             yield return new WaitForFixedUpdate();
         }
+        body2d.gravityScale = 1;
     }
 
+    void UpdateJump()
+    {
+        isJump = true;
+        jumpPressed = false;
+    }
     void DownJump()
     {
         if (isPlatform && platformEffector && downJumpPressed)
         {
             platformEffector.useColliderMask = true;
         }
+
+        downJumpPressed = false;
     }
 
     IEnumerator StopDownJump(Transform platform)

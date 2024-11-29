@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1255402450065264416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 0.89, z: 0}
+  m_LocalPosition: {x: 0.01, y: 1.033, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,12 +165,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5594279910104972401, guid: d2d270efa0131344584c36750b354140, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: f87821e0e24d7f04697e77cefe8f008b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.06, y: 1.74}
+  m_Size: {x: 1.03, y: 1.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -238,13 +238,14 @@ MonoBehaviour:
   accelerateTime: 0.1
   decelerateTIme: 0.05
   invincibleTime: 0
-  maxJumpCount: 1
-  jumpMax: 2.5
-  jumpMin: 4
-  jumpSpeed: 12
+  maxJumpCount: 2
+  jumpMax: 3
+  jumpMin: 2
+  jumpSpeed: 8
+  jumpAcceration: 200
   slowFallSpeed: 100
   FastFallSpeed: 200
-  fallSpeed: 150
+  fallSpeed: 60
   fallMaxSpeed: 24
   isInteracted: 0
 --- !u!70 &5748805213793135109
@@ -281,8 +282,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.8948481}
-  m_Size: {x: 1.06, y: 1.780025}
+  m_Offset: {x: 0.052880988, y: 1.0503802}
+  m_Size: {x: 1.0537786, y: 1.7924676}
   m_Direction: 0
 --- !u!50 &2783438336789653677
 Rigidbody2D:
@@ -321,7 +322,7 @@ Animator:
   m_GameObject: {fileID: 8248222488298628824}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4ca21f4c7ec8b20469a1d2f2c738d112, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
