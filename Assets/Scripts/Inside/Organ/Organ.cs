@@ -28,6 +28,7 @@ public abstract class Organ : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
+			Debug.Log(other.gameObject.layer.ToString());
 			OrganStay();
 		}
 	}
