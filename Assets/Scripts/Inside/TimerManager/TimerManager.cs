@@ -10,7 +10,7 @@ public class TimerManager : SingletonMono<TimerManager>
 {  
     
     //剩余时间
-    public float currentTime=0f;
+    public float currentTime;
     
     public void setTime(float num)
     {
@@ -35,5 +35,6 @@ public class TimerManager : SingletonMono<TimerManager>
         {
             EventCenter.Instance.Invoke(EventName.TimeRunOut);
         }
+        EventCenter.Instance.Invoke(EventName.TimeChange);
     }
 }

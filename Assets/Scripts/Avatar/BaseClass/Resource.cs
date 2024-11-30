@@ -12,6 +12,7 @@ public enum ResourceCategory
     Item              //道具，
 }
 //资源小类
+[System.Serializable]
 public enum ResourceType{
     Null,
     

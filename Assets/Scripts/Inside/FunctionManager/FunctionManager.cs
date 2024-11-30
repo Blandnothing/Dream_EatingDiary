@@ -23,21 +23,22 @@
 		{
 			foreach (var key in FunctionDic.Keys)
 			{
-				if (FunctionDic[key].IsStart)
+				if (FunctionDic[key].isStart)
 				{
 					CurrentTimeDic[key]+=Time.deltaTime;
                     if (CurrentTimeDic[key]>=TickTime)
                     {
 	                    CurrentTimeDic[key] -= TickTime;
 	                    TimeDic[key]--;
-	                        if (TimeDic[key] ==0)
-	                        {
-		                       StopFunction(key);
-		                        FunctionDic[key].Isable=false;
-	                        }		                      					
+	                    if (TimeDic[key] ==0)
+	                    {
+		                    StopFunction(key);
+		                    FunctionDic[key].isable=false;
+	                    }		       
 					}
 				}
 			}
+			EventCenter.Instance.Invoke(EventName.SkillTimeChange);
 				
 		}
 
@@ -57,13 +58,15 @@
 				TimeDic[key] = ResourceManager.Instance.GetResourceCount(key);
 				if (TimeDic[key] != 0)
 				{
-					FunctionDic[key].Isable=true;
+					FunctionDic[key].isable=true;
 				}
 				else
 				{
-					FunctionDic[key].Isable=false;
+					FunctionDic[key].isable=false;
 				}
-				FunctionDic[key].IsStart = false;
+				FunctionDic[key].isStart = false;
+				
+				CurrentTimeDic[key] = 0;
 			}
 		}
 
@@ -96,11 +99,11 @@
 			if (TimeDic[rsp] == 0)
 			{
 				StopFunction(rsp);
-				FunctionDic[rsp].Isable=false;
+				FunctionDic[rsp].isable=false;
 			}
 			else
 			{
-				FunctionDic[rsp].Isable=true;
+				FunctionDic[rsp].isable=true;
 			}
 		}
 
@@ -113,7 +116,7 @@
 			
 			InitFunctionTime();
 			//测试用注释(若不注释因为没设置timer的初始时间会使合成的技能点瞬间被吞掉)
-			//EventCenter.Instance.AddEvent(EventName.TimeRunOut,endInside);
+			EventCenter.Instance.AddEvent(EventName.TimeRunOut,endInside);
 
 		}
 
