@@ -1,18 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ResourceManager:Singleton<ResourceManager>
 {
     Dictionary<ResourceType,int> _resourceDict;
     Dictionary<ResourceType,ResourceCategory> _resourceCategoryDict;     //资源小类映射到大类用
-
+    Dictionary<ResourceType,Item> _itemDict;
+    
+    AsyncOperationHandle<IList<Item>> loadHandle;
     public ResourceManager()
     {
         InitResource();
     }
-
+    
     void InitResource()
     {
 
@@ -35,12 +40,14 @@ public class ResourceManager:Singleton<ResourceManager>
         {
             for (int j = 0; j < rscType.Length; j++)
             {
-                if(!_resourceCategoryDict.ContainsKey((ResourceType)(rscType as IList)[j]))
-                    _resourceCategoryDict.Add((ResourceType)(rscType as IList)[j], (ResourceCategory)(catType as IList)[i]);
                 if ((catType as IList)[i].ToString() == (rscType as IList)[j].ToString())
                 {
                     i++;
+                    continue;
                 }
+                if(!_resourceCategoryDict.ContainsKey((ResourceType)(rscType as IList)[j]))
+                    _resourceCategoryDict.Add((ResourceType)(rscType as IList)[j], (ResourceCategory)(catType as IList)[i]);
+                
             }
         }
         _resourceDict = new Dictionary<ResourceType, int>();
@@ -48,8 +55,29 @@ public class ResourceManager:Singleton<ResourceManager>
         {
             _resourceDict.Add(i,0);
         }
+        
+        InitItems();
     }
 
+    void InitItems()
+    {
+        _itemDict = new Dictionary<ResourceType,Item>();
+        
+        IList<object> items = new List<object>();
+        // loadHandle = Addressables.LoadAssetsAsync<Item>(paths,
+        //     addressable =>
+        //     {
+        //         _itemDict[addressable.resourceType] = addressable;
+        //     }
+        //     ,Addressables.MergeMode.Union
+        //     );
+        items = Resources.LoadAll("itemInstance");
+        foreach (var item in items)
+        {
+            if(item is Item)
+                _itemDict[(item as Item).resourceType] = item as Item;
+        }
+    }
     public ResourceCategory GetResourceCategory(ResourceType type)
     {
         if (!_resourceCategoryDict.ContainsKey((type)))
@@ -117,4 +145,14 @@ public class ResourceManager:Singleton<ResourceManager>
         }
         _resourceDict[rscType] = count;
     }
+
+    public Item GetItem(ResourceType type)
+    {
+        if ((_itemDict.ContainsKey(type)))
+        {
+            return _itemDict[type];
+        }
+        return null;
+    }
+    
 }

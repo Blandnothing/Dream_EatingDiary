@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -171,8 +172,9 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
       
       ResourceInstance rspI= Instantiate(resourcePrefab);
       rspI.transform.position = positionDelta(pos);
+      rspI.PlayerTransform=PlayerController.Instance.transform;
       rspI.rsp = resourceType;
-      //rspI.sr.sprite = Knapsack.Instance.TypeToItem[rspI.rsp].sprite;
+      rspI.sr.sprite = ResourceManager.Instance.GetItem(resourceType).sprite;
    }
   
     
@@ -183,8 +185,10 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
         InitCanGeneratedPositions();
         InitLevel();
         InitProbabilityDictionary();
-        CalculateResourse();
     }
 
-  
+    private void Start()
+    {
+        CalculateResourse();
+    }
 }

@@ -75,8 +75,8 @@ public class Knapsack : SingletonMono<Knapsack>
             {
                 //因test注释
                 
-                 // lattices[index].itemPrefab.itemName = TypeToItem[type].itemName;
-                 // lattices[index].itemPrefab.itemImage.sprite = TypeToItem[type].sprite;
+                 lattices[index].itemPrefab.itemName = TypeToItem[type].itemName;
+                 lattices[index].itemPrefab.itemImage.sprite = TypeToItem[type].sprite;
                  lattices[index].itemPrefab.description = TypeToItem[type].description;
                  lattices[index].itemPrefab.TextDescription = Description;
                  lattices[index].itemPrefab.itemNum.text = 0.ToString();
