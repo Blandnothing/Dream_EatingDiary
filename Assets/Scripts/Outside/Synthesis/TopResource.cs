@@ -7,4 +7,5 @@ using UnityEngine.UI;
 public class TopResource : MonoBehaviour
 {
 	public Text resourceNum;
+	public Image image;
 }

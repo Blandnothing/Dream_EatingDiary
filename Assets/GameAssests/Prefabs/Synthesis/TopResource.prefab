@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceNum: {fileID: 6173707171904031893}
+  image: {fileID: 5806520686891032404}
 --- !u!1 &8388720977775118021
 GameObject:
   m_ObjectHideFlags: 0
