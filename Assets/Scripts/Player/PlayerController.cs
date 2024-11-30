@@ -367,9 +367,9 @@ public class PlayerController : SingletonMono<PlayerController>
     //改变高度效果
     public float OriginHighMax;
     public float SetHighTime;
-    public void SetHigh(float jumpHigh,float time)
+    public void SetHigh(float rate,float time)
     {
-        jumpMax = jumpHigh;
+        jumpMax*=rate;
         SetHighTime = time;
     }
     public void  UpdateHigh()
@@ -388,9 +388,9 @@ public class PlayerController : SingletonMono<PlayerController>
     //改变速度效果
     public float OriginSpeedMax;
     public float SetSpeedTime;
-    public void SetSpeed(float speed,float time)
+    public void SetSpeed(float rate,float time)
     {
-        m_speed = speed;
+        m_speed *=rate;
         SetSpeedTime = time;
     }
     public void  UpdateSpeed()

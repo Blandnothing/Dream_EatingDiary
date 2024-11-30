@@ -67,6 +67,7 @@ public class Knapsack : SingletonMono<Knapsack>
     protected override void Awake()
     {  
         base.Awake();
+        
         InitTypeToItem();
         InitTypeToIndex();
         foreach (var (type,index) in TypetoIndexDic)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 using System.Collections.Generic;
@@ -51,7 +52,15 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 		public TB value;
 	}
 	[SerializeField]
-	private List<KeyValuePair<ResourceType,TopResource>> TypeToTop; 
+	private List<KeyValuePair<ResourceType,TopResource>> TypeToTop;
+	private void InitTop()
+	{
+		for (int i = 0; i < TypeToTop.Count; i++)
+		{
+			
+			 TypeToTop[i].value.image.sprite = Knapsack.Instance.TypeToItem[TypeToTop[i].id].sprite;
+		}
+	}
 	public void UpdateTopResource()
 	{
 		for (int i = 0; i < TypeToTop.Count; i++)
@@ -69,9 +78,13 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 		{
 			foreach (var rsp in SynthesisDic[typeToColumn[i].id])
 			{
+				//四个资源的数量及其消耗
 				typeToColumn[i].value.ResourceNum[ResourceIndex.TypeToIndex[rsp.Key]].text = rsp.Value.ToString();
+				
+				typeToColumn[i].value.ResourceImage[ResourceIndex.TypeToIndex[rsp.Key]].sprite =
+					Knapsack.Instance.TypeToItem[rsp.Key].sprite;
 			}
-			
+			typeToColumn[i].value.image.sprite = Knapsack.Instance.TypeToItem[typeToColumn[i].id].sprite;
 			var temRsp = typeToColumn[i].id;
 			typeToColumn[i].value.buttion.onClick.AddListener(()=>SynthesisItem(temRsp));
 		}
@@ -83,6 +96,12 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 		
 		InitSynthesisDic();
 		
+		
+	}
+
+	private void Start()
+	{
+		InitTop();
 		InitColumn();
 	}
 	void Update()
