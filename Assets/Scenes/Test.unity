@@ -4988,9 +4988,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 883424815528387386, guid: 4f36c30c059a6d940ac43dc8f8607b48, type: 3}
+      propertyPath: timeDelta
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 883424815528387386, guid: 4f36c30c059a6d940ac43dc8f8607b48, type: 3}
       propertyPath: resourcePrefab
       value: 
       objectReference: {fileID: 427703267}
+    - target: {fileID: 883424815528387386, guid: 4f36c30c059a6d940ac43dc8f8607b48, type: 3}
+      propertyPath: EntityLayer.m_Bits
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 883424815528387386, guid: 4f36c30c059a6d940ac43dc8f8607b48, type: 3}
+      propertyPath: GroundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 1061008000860729002, guid: 4f36c30c059a6d940ac43dc8f8607b48, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

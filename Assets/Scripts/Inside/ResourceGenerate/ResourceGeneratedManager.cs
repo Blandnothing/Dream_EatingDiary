@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -63,7 +64,9 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
         }
     }
     //评估系数
-    [SerializeField] private float evaluateX = 0.36f,evaluateY = 0.64f;
+    [SerializeField] 
+    [Header("位置权重的横纵距离计算系数,若要放大地图，等比例放大系数即可")]
+    private float evaluateX = 0.36f,evaluateY = 0.64f;
     //评估函数
     private float EvaluatePosition(Vector2Int position)
     {
@@ -83,19 +86,25 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
         return position + new Vector2(0.5f,0.5f);
     }
     //生成可能生成资源的格子
+
+    [Header("不会与资源重合的层")]
+    public LayerMask EntityLayer;
+    [Header("物理意义上的地面层")]
+    public LayerMask GroundLayer;
     private void InitCanGeneratedPositions()
     {
+        _canGeneratedPositions.Clear();
         for (int x = left; x<= right; x++)
         {
             for (int y = bottom; y <= top; y++)
             {
                 var position = positionDelta(new Vector2(x,y));
-                var cols=  Physics2D.OverlapBoxAll(position, new Vector2(0.4f, 0.4f), 0, 1<<LayerMask.NameToLayer("Ground"));
+                var cols=  Physics2D.OverlapBoxAll(position, new Vector2(0.4f, 0.4f), 0, EntityLayer);
                 if (cols.Length > 0)
                 {
                     continue;
                 }
-                var GroundCol = Physics2D.Raycast(position,Vector2.down,ToGroundMaxDistance,1<<LayerMask.NameToLayer("Ground"));
+                var GroundCol = Physics2D.Raycast(position,Vector2.down,ToGroundMaxDistance,GroundLayer);
                 if (ReferenceEquals(null,GroundCol.collider))
                 {
                     continue;
@@ -121,7 +130,7 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
                 }
             }
             var level = UnityEngine.Random.Range(0,leastLevel);
-            _postionWeights[pos] = level;
+            _postionWeights[pos] = Math.Max(level-generateTimes,0);
            
         }
     }
@@ -174,8 +183,24 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
       rspI.rsp = resourceType;
       //rspI.sr.sprite = Knapsack.Instance.TypeToItem[rspI.rsp].sprite;
    }
-  
-    
+
+   [Header("生成资源时间间隔")] public float timeDelta;
+   private float _currentTime = 0;
+   private int generateTimes;
+
+   public void UpdateGenerated()
+   {
+         _currentTime += Time.deltaTime;
+          if (_currentTime - timeDelta > 0)
+          {
+              generateTimes++;
+              _currentTime -= timeDelta;
+              InitCanGeneratedPositions();
+              InitLevel();
+              CalculateResourse();
+                            
+          }     
+   }
     
     protected override void Awake()
     {
@@ -185,6 +210,13 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
         InitProbabilityDictionary();
         CalculateResourse();
     }
+    
+    
 
-  
+    private void Update()
+    {
+      UpdateGenerated();
+    }
+
+
 }
