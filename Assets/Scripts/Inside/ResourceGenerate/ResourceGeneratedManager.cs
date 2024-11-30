@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -180,8 +181,9 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
       
       ResourceInstance rspI= Instantiate(resourcePrefab);
       rspI.transform.position = positionDelta(pos);
+      rspI.PlayerTransform=PlayerController.Instance.transform;
       rspI.rsp = resourceType;
-      //rspI.sr.sprite = Knapsack.Instance.TypeToItem[rspI.rsp].sprite;
+      rspI.sr.sprite = ResourceManager.Instance.GetItem(resourceType).sprite;
    }
 
    [Header("生成资源时间间隔")] public float timeDelta;
@@ -208,7 +210,6 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
         InitCanGeneratedPositions();
         InitLevel();
         InitProbabilityDictionary();
-        CalculateResourse();
     }
     
     
@@ -218,5 +219,12 @@ public class  ResourceGeneratedManager : SingletonMono<ResourceGeneratedManager>
       UpdateGenerated();
     }
 
+
+
+
+    private void Start()
+    {
+        CalculateResourse();
+    }
 
 }

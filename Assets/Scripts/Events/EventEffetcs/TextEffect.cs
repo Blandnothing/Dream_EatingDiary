@@ -15,9 +15,9 @@
 		{
 			switch (type)
 			{
-				case EText.dialogue:
+				case EText.Dialogue:
 					break;
-				case EText.eventPrompt:
+				case EText.EventPrompt:
 					break;
 				case EText.Toast:
 					break;
@@ -27,6 +27,6 @@
 
 	public enum EText
 	{
-		dialogue,eventPrompt,Toast
+		Dialogue,EventPrompt,Toast
 	}
 }
