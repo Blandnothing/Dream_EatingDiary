@@ -77,4 +77,5 @@ public static class EventName
     public const string SetTime = "setTime";
     public const string TimeRunOut = "timeRunOut";
     public const string Dead = "dead";
+    public const string NPCDialogue= "npcdialogue";
 }
