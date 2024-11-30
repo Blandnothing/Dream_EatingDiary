@@ -4,6 +4,10 @@
 	{
 		private EText type;
 		private string text;
+		public TextEffect(EventConfig config) : base(config)
+		{
+			
+		}
 		
 		protected override void InitByConfig(EventConfig config)
 		{

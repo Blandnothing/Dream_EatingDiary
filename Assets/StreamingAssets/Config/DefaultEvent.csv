@@ -1,0 +1,4 @@
+﻿name,type,args
+player_press_J,FunctionEffect,Dichotomy
+player_press_K,FunctionEffect,Attract
+player_press_L,FunctionEffect,Accelerate

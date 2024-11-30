@@ -7,10 +7,6 @@ namespace GameEvent
     
     public abstract class EventEffect
     {
-        public EventEffect()
-        {
-            
-        }
         public EventEffect(EventConfig config)
         {
             InitByConfig(config);

@@ -12,15 +12,20 @@ namespace GameEvent
 		public EControl type;
 		//moveSpeed:value1,
 		//jumpHigh:value1,
-		public int value1;
+		public float value1;
 		//变动时间
-		public int value2;
+		public float value2;
+
+		public ControlEffect(EventConfig config) : base(config)
+		{
+			
+		}
 		protected override void InitByConfig(EventConfig config)
 		{
 			var args = config.args.Split(',');
 			 EControl.TryParse(args[0],out type);
-			 value1 = int.Parse(args[1]);
-			 value2=int.Parse(args[2]);
+			 value1 = float.Parse(args[1]);
+			 value2=float.Parse(args[2]);
 
 		}
 		

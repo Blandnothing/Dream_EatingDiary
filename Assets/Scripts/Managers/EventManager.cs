@@ -30,20 +30,27 @@ public class EventManager : Singleton<EventManager>
     {
         if (configs == null)
             return;
-        
+
+        string spaceName = "GameEvent.";
         foreach (var config in configs)
         {
             if (!eventsCache.ContainsKey(config.name))
                 eventsCache[config.name] = new BaseEvent();
-            var type = Type.GetType(config.type); // 获取类的类型
+            var type = Type.GetType(spaceName + config.type); // 获取类的类型
             if (type != null && type.IsSubclassOf(typeof(EventEffect)))
             {
-                eventsCache[config.name].AddListener(()=> (Activator.CreateInstance(type) as EventEffect)?.OnExecute());
+                eventsCache[config.name].AddListener(()=> (Activator.CreateInstance(type,config) as EventEffect).OnExecute());
             }
             else
             {
                 Debug.Log("Invalid Event Type");
             }
         }
+    }
+
+    public void InvokeEvent(string eventName)
+    {
+        if(eventsCache.ContainsKey(eventName))
+            eventsCache[eventName].Execute();
     }
 }

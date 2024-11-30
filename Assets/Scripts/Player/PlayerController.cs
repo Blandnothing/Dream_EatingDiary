@@ -64,8 +64,8 @@ public class PlayerController : SingletonMono<PlayerController>
         prePos = transform.position;
         
         OriginHighMax = jumpMax;
+        OriginLowMax = jumpMin;
         OriginSpeedMax = m_speed;
-
 
     }
     void Update()
@@ -100,18 +100,18 @@ public class PlayerController : SingletonMono<PlayerController>
             downJumpPressed = true;
         }
     }
-
-    public void OnAttract(InputValue value)
-    {
-        
-    }
+    
     public void OnDichotomy(InputValue value)
     {
-        
+        EventManager.Instance.InvokeEvent("player_press_J");
+    }
+    public void OnAttract(InputValue value)
+    {
+        EventManager.Instance.InvokeEvent("player_press_K");
     }
     public void OnAccerlerate(InputValue value)
     {
-        
+        EventManager.Instance.InvokeEvent("player_press_L");
     }
 
     public void OnInteract(InputValue value)
@@ -365,11 +365,13 @@ public class PlayerController : SingletonMono<PlayerController>
     }
 
     //改变高度效果
-    public float OriginHighMax;
+    public float OriginHighMax;    
+    public float OriginLowMax;
     public float SetHighTime;
-    public void SetHigh(float jumpHigh,float time)
+    public void SetHigh(float multiple,float time)
     {
-        jumpMax = jumpHigh;
+        jumpMax = multiple * OriginHighMax;
+        jumpMin = multiple * OriginLowMax;
         SetHighTime = time;
     }
     public void  UpdateHigh()
@@ -382,15 +384,16 @@ public class PlayerController : SingletonMono<PlayerController>
           {
               SetHighTime = 0;
               jumpMax = OriginHighMax;
+              jumpMin = OriginLowMax;
           }
     }
     
     //改变速度效果
     public float OriginSpeedMax;
     public float SetSpeedTime;
-    public void SetSpeed(float speed,float time)
+    public void SetSpeed(float multiple,float time)
     {
-        m_speed = speed;
+        m_speed =multiple * OriginSpeedMax;
         SetSpeedTime = time;
     }
     public void  UpdateSpeed()

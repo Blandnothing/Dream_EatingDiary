@@ -9,7 +9,10 @@ namespace GameEvent
     {
         private string type;
         private int count;
-
+        public ResourceEffect(EventConfig config) : base(config)
+        {
+			
+        }
         
         protected override void InitByConfig(EventConfig config)
         {
