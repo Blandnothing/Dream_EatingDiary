@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2a1faacdc85a7047aa710dcf0726db9, type: 3}
-  m_Name: Dichotomy
+  m_Name: Key
   m_EditorClassIdentifier: 
-  resourceType: 9
+  resourceType: 0
   itemName: 
-  sprite: {fileID: -7314801592898661395, guid: dc4409d0927cb094ab7d7045f27cf248, type: 3}
+  sprite: {fileID: -3357289602171556417, guid: 687b953e93b9731429708e6788dfc19a, type: 3}
   description: 

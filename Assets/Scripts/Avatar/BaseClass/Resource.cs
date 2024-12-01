@@ -34,6 +34,7 @@ public enum ResourceType{
     Dichotomy, //虚实切换  
     Attract,//灵能吸引 
     Accelerate,//加速
+    Key,
     
     Item,
 }

@@ -13,6 +13,7 @@ public class DreamViewManager : SingletonMono<DreamViewManager>
     ColorAdjustments colorAdjustments;
     private bool isInside;
     private Coroutine coroutine;
+    private GameObject dreamView;
 
     protected override void Awake()
     {
@@ -22,6 +23,8 @@ public class DreamViewManager : SingletonMono<DreamViewManager>
     }
     private void Start()
     {
+        dreamView = GameObject.Find("DreamView");
+        dreamView.SetActive(isInside);
         EventCenter.Instance.AddEvent(EventName.DreamView,SwitchViews);
     }
 
@@ -35,6 +38,7 @@ public class DreamViewManager : SingletonMono<DreamViewManager>
         isInside = b;
         if(coroutine != null)
             StopCoroutine(coroutine);
+        dreamView.SetActive(b);
         coroutine = StartCoroutine(SwitchViewsCoroutine(b ? 0 : -100,speed));
     }
 
