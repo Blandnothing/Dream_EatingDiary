@@ -90,16 +90,14 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
     protected override void Awake()
     {
        base.Awake();
+       StartCoroutine(EventPolling());
     }
     
-    void Update()
-    {
-        StartCoroutine(EventPolling());
-    }
+
     
-    // public InsideEventManager(){
-    //     InitEvents();
-    // }
+    public InsideEventManager(){
+        InitEvents();
+    }
 
     public class InsideEventConfig
     {
@@ -125,7 +123,7 @@ public class InsideEventManager : SingletonMono<InsideEventManager>
         foreach (var config in configs)
         {
             if (!DefaultInsideEvents.ContainsKey(config.name))
-                DefaultInsideEvents[config.name] = new DefaultInsideEvent(config.weight);
+                DefaultInsideEvents[config.name] = new DefaultInsideEvent(config.weight,reduceWeightTime);
             DefaultInsideEvents[config.name]._baseEvent = EventManager.Instance.eventsCache[config.baseEventName];
 
         }

@@ -1,18 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Entry : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Sprite lockedSprite;
+    [SerializeField] Sprite unlockedSprite;
+    [SerializeField] private GameObject shallow;
+    [SerializeField] private GameObject deep;
+    bool locked = false;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        locked = ResourceManager.Instance.GetResourceCount(ResourceType.Key) <= 0;
+        if(locked)
+        {
+            GetComponent<Image>().sprite = lockedSprite;
+            deep.SetActive(false);
+        }
+        else
+        {
+            GetComponent<Image>().sprite = unlockedSprite;
+            deep.SetActive(true);
+        }
     }
 }

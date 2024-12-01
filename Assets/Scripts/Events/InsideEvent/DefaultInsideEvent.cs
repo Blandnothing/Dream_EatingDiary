@@ -11,11 +11,11 @@
 		public int CurrentWeight;
 		public float  AwaitTime;
 
-		public DefaultInsideEvent(int defaultWeight)
+		public DefaultInsideEvent(int defaultWeight,float awaitTime)
 		{
 			this.DefaultWeight = defaultWeight;
 			CurrentWeight = defaultWeight;
-			AwaitTime = InsideEventManager.Instance.reduceWeightTime;
+			AwaitTime = awaitTime;
 		}
 
 		public void  DownWeight()

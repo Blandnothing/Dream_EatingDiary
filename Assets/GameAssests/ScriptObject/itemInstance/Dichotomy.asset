@@ -15,4 +15,4 @@ MonoBehaviour:
   resourceType: 9
   itemName: 
   sprite: {fileID: -7314801592898661395, guid: dc4409d0927cb094ab7d7045f27cf248, type: 3}
-  description: "\u68A6\u9B47\u4E0E\u751F\u4FF1\u6765\u7684\u80FD\u529B\uFF0C\u53EF\u4EE5\u770B\u89C1\u68A6\u5883\u4E2D\u9690\u85CF\u7684\u4E8B\u7269"
+  description: "\u68A6\u9B54\u4E0E\u751F\u4FF1\u6765\u7684\u80FD\u529B,\u53EF\u4EE5\u770B\u89C1\u68A6\u5883\u4E2D\u9690\u85CF\u7684\u4E8B\u7269"

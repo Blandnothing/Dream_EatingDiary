@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 1ba91441173d7874db569a83d640901c, type: 3}
   - {fileID: 8300000, guid: 478b39bad41f4ca4c954bce87e2847cd, type: 3}
   - {fileID: 8300000, guid: 4203a25fc35492f49a1be1cdb248ce93, type: 3}
   - {fileID: 8300000, guid: b7104dfd3603a1c4d894bfde19f87f51, type: 3}
@@ -165,6 +165,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ed8aea16497caa1499263adf583c777e, type: 3}
   - {fileID: 8300000, guid: a1b482d010ee855448d4e4f168cde512, type: 3}
   - {fileID: 8300000, guid: 0e9dce23457932546a4d10eda7d6f367, type: 3}
-  - {fileID: 8300000, guid: 1ba91441173d7874db569a83d640901c, type: 3}
   audioSource: {fileID: 7819633213833770125}
   defaultMusic: {fileID: 8300000, guid: 4203a25fc35492f49a1be1cdb248ce93, type: 3}

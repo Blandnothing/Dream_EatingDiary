@@ -35,7 +35,7 @@ public class EventManager : Singleton<EventManager>
         foreach (var config in configs)
         {
             if (!eventsCache.ContainsKey(config.name))
-                eventsCache[config.name] = new BaseEvent();
+                eventsCache[config.name] = new BaseEvent(config.name);
             var type = Type.GetType(spaceName + config.type); // 获取类的类型
             if (type != null && type.IsSubclassOf(typeof(EventEffect)))
             {

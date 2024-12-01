@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2a1faacdc85a7047aa710dcf0726db9, type: 3}
-  m_Name: Openness
+  m_Name: Ticket
   m_EditorClassIdentifier: 
-  resourceType: 2
+  resourceType: 13
   itemName: 
-  sprite: {fileID: 1021115380323640789, guid: c1fbad94510f899418426199e4f7f480, type: 3}
-  description: "\u68A6\u5883\u4E2D\u906D\u9047\u7684\u4E00\u5207\u90FD\u6709\u56DE\u62A5,ta\u53C8\u63A5\u7EB3\u4E86\u4F60\u4E00\u70B9"
+  sprite: {fileID: -6527278920154813746, guid: 5a0e0cb71efb7be47ac0752beacf8d20, type: 3}
+  description: "\u8FDB\u573A\u9986\u54EA\u80FD\u4E0D\u8981\u95E8\u7968\uFF1F\uFF01\u54EA\u6765\u7684\uFF1F\u6362\u6765\u7684\uFF1F"

@@ -47,6 +47,53 @@ MonoBehaviour:
   prompt: {fileID: 0}
   dialogue: {fileID: 0}
   toast: {fileID: 0}
+--- !u!1 &397524309607532800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4135592364204772660}
+  - component: {fileID: 3156971357301860745}
+  m_Layer: 0
+  m_Name: LightManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4135592364204772660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397524309607532800}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6305540799519178835}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3156971357301860745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397524309607532800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8cce476a30d6244b9d7175b44341b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalLight: {fileID: 0}
+  playerLight2D: {fileID: 0}
+  translateSpeed: 20
 --- !u!1 &3124739121302315735
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +175,7 @@ Transform:
   - {fileID: 6782211607611720943}
   - {fileID: 9138740138505868178}
   - {fileID: 4824168369689422755}
+  - {fileID: 4135592364204772660}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4604434951612798092
@@ -255,6 +303,18 @@ PrefabInstance:
     - target: {fileID: 760473797602318206, guid: d8b96a243c9e6654dbfe095d021a9213, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3036866927238242647, guid: d8b96a243c9e6654dbfe095d021a9213, type: 3}
+      propertyPath: awaitTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3036866927238242647, guid: d8b96a243c9e6654dbfe095d021a9213, type: 3}
+      propertyPath: reduceWeightTime
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3036866927238242647, guid: d8b96a243c9e6654dbfe095d021a9213, type: 3}
+      propertyPath: _defaultProbability
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7147720243272620897, guid: d8b96a243c9e6654dbfe095d021a9213, type: 3}
       propertyPath: m_Name

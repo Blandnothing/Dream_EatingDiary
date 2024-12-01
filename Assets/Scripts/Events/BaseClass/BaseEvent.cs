@@ -7,10 +7,18 @@ namespace GameEvent
 {
     public class BaseEvent
     {
+        public string name;
         private UnityAction m_eventEffects;
 
+        public BaseEvent(string name)
+        {
+            this.name = name;
+        }
         public virtual void Execute()
         {
+#if UNITY_EDITOR
+            Debug.Log(name);
+#endif            
              m_eventEffects?.Invoke();
         }
         public void AddListener(UnityAction listener)
