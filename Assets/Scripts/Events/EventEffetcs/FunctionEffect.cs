@@ -18,7 +18,7 @@ namespace GameEvent
         }
         public override void OnExecute()
         {
-            if(FunctionManager.Instance.FunctionDic[type].IsStart)
+            if(FunctionManager.Instance.FunctionDic[type].isStart)
                 FunctionManager.Instance.StopFunction(type);
             else
                 FunctionManager.Instance.StartFunction(type);

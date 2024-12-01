@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Blink : MonoBehaviour
+public class Blink : SingletonMono<Blink>
 {
     static private bool isReady;
     [SerializeField]
@@ -21,8 +21,9 @@ public class Blink : MonoBehaviour
         SetValue(0);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (isReady)
         {
             Destroy(gameObject);

@@ -12,6 +12,7 @@ public enum ResourceCategory
     Item              //道具，
 }
 //资源小类
+[System.Serializable]
 public enum ResourceType{
     Null,
     
@@ -33,6 +34,7 @@ public enum ResourceType{
     Dichotomy, //虚实切换  
     Attract,//灵能吸引 
     Accelerate,//加速
+    Key,
     
     Item,
 }

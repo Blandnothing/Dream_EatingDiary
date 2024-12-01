@@ -113,10 +113,11 @@ public class PlayerController : SingletonMono<PlayerController>
     {
         EventManager.Instance.InvokeEvent("player_press_L");
     }
-
+    
     public void OnInteract(InputValue value)
     {
         isInteracted = value.isPressed;
+        EventCenter.Instance.Invoke(EventName.NPCDialogue);
     }
     private void FixedUpdate()
     {
@@ -374,6 +375,16 @@ public class PlayerController : SingletonMono<PlayerController>
         jumpMin = multiple * OriginLowMax;
         SetHighTime = time;
     }
+    public void SetHigh(float multiple)
+    {
+        jumpMax = multiple * OriginHighMax;
+        jumpMin = multiple * OriginLowMax;
+    }
+    public void SetHigh()
+    {
+        jumpMax =  OriginHighMax;
+        jumpMin =  OriginLowMax;
+    }
     public void  UpdateHigh()
     {
           if (SetHighTime > 0)
@@ -383,8 +394,10 @@ public class PlayerController : SingletonMono<PlayerController>
           else
           {
               SetHighTime = 0;
-              jumpMax = OriginHighMax;
-              jumpMin = OriginLowMax;
+              if(!FunctionManager.Instance.FunctionDic[ResourceType.Accelerate].isStart){
+                  jumpMax = OriginHighMax;
+                  jumpMin = OriginLowMax;
+              }
           }
     }
     
@@ -396,6 +409,14 @@ public class PlayerController : SingletonMono<PlayerController>
         m_speed =multiple * OriginSpeedMax;
         SetSpeedTime = time;
     }
+    public void SetSpeed(float multiple)
+    {
+        m_speed =multiple * OriginSpeedMax;
+    }
+    public void SetSpeed()
+    {
+        m_speed =OriginSpeedMax;
+    }
     public void  UpdateSpeed()
     {
           if (SetSpeedTime > 0)
@@ -405,7 +426,8 @@ public class PlayerController : SingletonMono<PlayerController>
           else
           {
               SetSpeedTime = 0;
-              m_speed = OriginSpeedMax;
+              if(!FunctionManager.Instance.FunctionDic[ResourceType.Accelerate].isStart)
+                m_speed = OriginSpeedMax;
           }
     }
     

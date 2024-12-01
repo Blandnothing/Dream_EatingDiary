@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 10
   itemName: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 7926924752844429125, guid: 0fc40339f3cad8b44a5a5309ae35eecf, type: 3}
+  description: 

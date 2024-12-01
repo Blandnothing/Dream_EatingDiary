@@ -80,7 +80,7 @@ public class Knapsack : SingletonMono<Knapsack>
                  lattices[index].itemPrefab.itemImage.sprite = TypeToItem[type].sprite;
                  lattices[index].itemPrefab.description = TypeToItem[type].description;
                  lattices[index].itemPrefab.TextDescription = Description;
-                 lattices[index].itemPrefab.itemNum.text = 0.ToString();
+                 lattices[index].itemPrefab.itemNum.text = ResourceManager.Instance.GetResourceCount(type).ToString();
             }
            
         }

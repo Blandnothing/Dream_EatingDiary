@@ -36,7 +36,7 @@
 				if (!resourceInstance.isTriggered)
 				{
 					resourceInstance.isTriggered = true;
-					ResourceManager.Instance.ChangeResourceConut(rsp,1);
+					CollectResource.Instance.AddResource(resourceInstance.rsp,1);
 				}
 			}
 

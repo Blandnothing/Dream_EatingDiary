@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -10,29 +11,28 @@ public class ResourceManager:Singleton<ResourceManager>
 {
     Dictionary<ResourceType,int> _resourceDict;
     Dictionary<ResourceType,ResourceCategory> _resourceCategoryDict;     //资源小类映射到大类用
+
+    public List<ResourceType> ResourceTypes       //遍历资源小类用
+    {
+        get
+        {
+            return new List<ResourceType>(_resourceDict.Keys);
+        }
+    } 
+
     Dictionary<ResourceType,Item> _itemDict;
     
     AsyncOperationHandle<IList<Item>> loadHandle;
     public ResourceManager()
     {
         InitResource();
+        _resourceDict = DataManager.Instance.GetResourceCount();
     }
     
     void InitResource()
     {
 
         _resourceCategoryDict = new Dictionary<ResourceType, ResourceCategory>();
-        // {
-        //     [ResourceType.Hunger] = ResourceCategory.Nightmare,
-        //     [ResourceType.Openness] = ResourceCategory.Nightmare,
-        //     
-        //     [ResourceType.Gold] = ResourceCategory.Mine,
-        //     [ResourceType.Silver] = ResourceCategory.Mine,
-        //     [ResourceType.Copper] = ResourceCategory.Mine,
-        //     [ResourceType.Gem] = ResourceCategory.Mine,
-        //     
-        //     
-        // };
         
         var rscType = Enum.GetValues(typeof(ResourceType));
         var catType = Enum.GetValues(typeof(ResourceCategory));
@@ -50,15 +50,10 @@ public class ResourceManager:Singleton<ResourceManager>
                 
             }
         }
-        _resourceDict = new Dictionary<ResourceType, int>();
-        foreach (var i in _resourceCategoryDict.Keys)
-        {
-            _resourceDict.Add(i,0);
-        }
+        
         
         InitItems();
     }
-
     void InitItems()
     {
         _itemDict = new Dictionary<ResourceType,Item>();
@@ -96,6 +91,7 @@ public class ResourceManager:Singleton<ResourceManager>
             return;
         }
         _resourceDict[rscType] += count;
+        DataManager.Instance.SetResourceCount(_resourceDict);
     }
     public int GetResourceCount(ResourceType rscType)
     {
@@ -144,6 +140,7 @@ public class ResourceManager:Singleton<ResourceManager>
             return;
         }
         _resourceDict[rscType] = count;
+        DataManager.Instance.SetResourceCount(_resourceDict);
     }
 
     public Item GetItem(ResourceType type)

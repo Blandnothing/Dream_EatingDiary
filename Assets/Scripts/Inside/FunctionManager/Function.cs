@@ -4,16 +4,13 @@
 
 	public abstract class Function
 	{
-		private bool isable=false;
+		public bool isable=false;
 
-		private bool isStart=false;
-		
-		public bool Isable { get; set; }
-		public bool IsStart{ get; set; }
+		public bool isStart=false;
 
 		public void Start()
 		{
-			if (!Isable)
+			if (!isable)
 			{
 				return;
 			}
