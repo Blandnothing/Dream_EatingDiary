@@ -8,13 +8,19 @@ public class UIManager : MonoBehaviour
     public void OnCancel()
     {
         if(currentUI != null && currentUI.activeSelf)
-            currentUI.SetActive(false);
+            SwitchUIState(currentUI);
     }
 
     public void SwitchUIState(GameObject go)
     {
+        if(currentUI && currentUI != go) return;
+        
         go.SetActive(!go.activeSelf);
         if(go.activeSelf)
             currentUI = go;
+        else
+        {
+            currentUI = null;
+        }
     }
 }
