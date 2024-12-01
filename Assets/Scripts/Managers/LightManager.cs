@@ -4,20 +4,28 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class LightManager : MonoBehaviour
+public class LightManager : SingletonMono<LightManager>
 { 
     public Light2D globalLight; 
     public Light2D playerLight2D;
     public float translateSpeed=20;
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         globalLight = GameObject.Find("GlobalLight").GetComponent<Light2D>();    
         playerLight2D = GameObject.Find("PlayerLight").GetComponent<Light2D>();
     }
 
-    void Start()
+    public void SetGlobalLight(Color color, float value)
     {
-        NexonLight(globalLight);
+        globalLight.color = color;
+        globalLight.intensity = value;
+    }
+
+    public void SetPlayerLight(Color color, float value)
+    {
+        playerLight2D.color = color;   
+        playerLight2D.intensity = value;
     }
 
     void NexonLight(Light2D light)
