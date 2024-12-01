@@ -35,6 +35,7 @@ public enum ResourceType{
     Attract,//灵能吸引 
     Accelerate,//加速
     Key,
+    Ticket,
     
     Item,
 }

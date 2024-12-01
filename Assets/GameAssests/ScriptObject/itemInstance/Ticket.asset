@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2a1faacdc85a7047aa710dcf0726db9, type: 3}
-  m_Name: Dichotomy
+  m_Name: Ticket
   m_EditorClassIdentifier: 
-  resourceType: 9
+  resourceType: 13
   itemName: 
-  sprite: {fileID: -7314801592898661395, guid: dc4409d0927cb094ab7d7045f27cf248, type: 3}
-  description: "\u68A6\u9B47\u4E0E\u751F\u4FF1\u6765\u7684\u80FD\u529B\uFF0C\u53EF\u4EE5\u770B\u89C1\u68A6\u5883\u4E2D\u9690\u85CF\u7684\u4E8B\u7269"
+  sprite: {fileID: 0}
+  description: "\u8FDB\u573A\u9986\u54EA\u80FD\u4E0D\u8981\u95E8\u7968\uFF1F\uFF01\u54EA\u6765\u7684\uFF1F\u6362\u6765\u7684\uFF1F"

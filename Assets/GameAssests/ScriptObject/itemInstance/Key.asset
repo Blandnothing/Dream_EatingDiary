@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a1faacdc85a7047aa710dcf0726db9, type: 3}
   m_Name: Key
   m_EditorClassIdentifier: 
-  resourceType: 0
+  resourceType: 12
   itemName: 
   sprite: {fileID: -3357289602171556417, guid: 687b953e93b9731429708e6788dfc19a, type: 3}
-  description: 
+  description: "\u5F00\u542F\u68A6\u5883\u6DF1\u5C42\u7684\u94A5\u5319\uFF0Cta\u7684\u4E3B\u4EBA\u4E0D\u614E\u4E22\u5728\u4E86\u8FD9\u91CC\uFF0C\u4F60\u4F1A\u5E2E\u52A9\u5979\u7684\u5427"

@@ -17,13 +17,18 @@
 		}
 		public override void OnExecute()
 		{
+			if(EventText.Instance == null)
+				return;
 			switch (type)
 			{
 				case EText.Dialogue:
+					EventText.Instance.ShowDialogue(text);
 					break;
 				case EText.EventPrompt:
+					EventText.Instance.ShowPrompt(text);
 					break;
 				case EText.Toast:
+					EventText.Instance.ShowToast(text);
 					break;
 			}
 		}

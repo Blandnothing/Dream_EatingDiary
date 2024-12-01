@@ -4170,6 +4170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlinkCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4253498990371080081, guid: 223ee05df5e2f6e44a6ed05536be2d6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4677862842465066441, guid: 223ee05df5e2f6e44a6ed05536be2d6c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -4298,6 +4302,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6848201110239785949, guid: 223ee05df5e2f6e44a6ed05536be2d6c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 03f286552bc3e4a4b8ab07b170816426, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

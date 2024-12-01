@@ -27,10 +27,10 @@ public class HangUpManager : MonoBehaviour
     public float addResourceTime;
     public float addResourceTimer;
     public Dictionary<ResourceType,int> resourceDelta =new(){
-        { ResourceType.Gold ,4},
-        { ResourceType.Silver ,4},
+        { ResourceType.Gold ,2},
+        { ResourceType.Silver ,2},
         { ResourceType.Copper ,4},
-        { ResourceType.Gem ,4}
+        { ResourceType.Gem ,1}
     };
     
     

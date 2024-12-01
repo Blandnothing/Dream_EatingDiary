@@ -58,7 +58,7 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 		for (int i = 0; i < TypeToTop.Count; i++)
 		{
 			
-			 TypeToTop[i].value.image.sprite = Knapsack.Instance.TypeToItem[TypeToTop[i].id].sprite;
+			 TypeToTop[i].value.image.sprite = ResourceManager.Instance.GetItem(TypeToTop[i].id).sprite;
 		}
 	}
 	public void UpdateTopResource()
@@ -82,9 +82,10 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 				typeToColumn[i].value.ResourceNum[ResourceIndex.TypeToIndex[rsp.Key]].text = rsp.Value.ToString();
 				
 				typeToColumn[i].value.ResourceImage[ResourceIndex.TypeToIndex[rsp.Key]].sprite =
-					Knapsack.Instance.TypeToItem[rsp.Key].sprite;
+					ResourceManager.Instance.GetItem(rsp.Key).sprite;
 			}
-			typeToColumn[i].value.image.sprite = Knapsack.Instance.TypeToItem[typeToColumn[i].id].sprite;
+
+			typeToColumn[i].value.image.sprite = ResourceManager.Instance.GetItem(typeToColumn[i].id).sprite;
 			var temRsp = typeToColumn[i].id;
 			typeToColumn[i].value.buttion.onClick.AddListener(()=>SynthesisItem(temRsp));
 		}
