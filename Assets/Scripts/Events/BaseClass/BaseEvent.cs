@@ -19,6 +19,7 @@ namespace GameEvent
 #if UNITY_EDITOR
             Debug.Log(name);
 #endif            
+            MusicManager.Instance.PlaySound("event_happen");
              m_eventEffects?.Invoke();
         }
         public void AddListener(UnityAction listener)

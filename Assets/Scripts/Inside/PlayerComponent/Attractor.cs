@@ -18,6 +18,25 @@
 		{
 			if (other.CompareTag("Resource"))
 			{
+				var rsc = other.GetComponent<ResourceInstance>();
+				if (rsc != null)
+				{
+					switch (rsc.rsp)
+					{
+						case ResourceType.Copper:
+							MusicManager.Instance.PlaySound("picking_Copper");
+							break;
+						case ResourceType.Silver:
+							MusicManager.Instance.PlaySound("picking_Silver");
+							break;
+						case ResourceType.Gold:
+							MusicManager.Instance.PlaySound("picking_Gold");
+							break;
+						case ResourceType.Gem:
+							MusicManager.Instance.PlaySound("picking_Gem");
+							break;
+					}
+				}
 				Destroy(other.gameObject);
 			}
 		}

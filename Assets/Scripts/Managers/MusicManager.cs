@@ -17,6 +17,7 @@ public class MusicManager : SingletonMono<MusicManager>
             audioClipDictionary.Add(clip.name, clip);
         }
         audioSource.clip = defaultMusic;
+        audioSource.Play();
     }
 
     public void PlayMusic(string clipName)

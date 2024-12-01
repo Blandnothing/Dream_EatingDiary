@@ -40,6 +40,7 @@ public class SynthesisManager :SingletonMono<SynthesisManager>
 			{
 				ResourceManager.Instance.ChangeResourceConut(rsp,1);
 				Debug.Log(rsp.ToString());
+				MusicManager.Instance.PlaySound("synthesize");
 			}
 
 		}

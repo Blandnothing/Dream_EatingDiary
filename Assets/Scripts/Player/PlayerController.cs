@@ -104,14 +104,17 @@ public class PlayerController : SingletonMono<PlayerController>
     public void OnDichotomy(InputValue value)
     {
         EventManager.Instance.InvokeEvent("player_press_J");
+        MusicManager.Instance.PlaySound("skill_Dichotomy");
     }
     public void OnAttract(InputValue value)
     {
         EventManager.Instance.InvokeEvent("player_press_K");
+        MusicManager.Instance.PlaySound("skill_Attract");
     }
     public void OnAccerlerate(InputValue value)
     {
         EventManager.Instance.InvokeEvent("player_press_L");
+        MusicManager.Instance.PlaySound("skill_Accelerate");
     }
     
     public void OnInteract(InputValue value)
@@ -196,7 +199,14 @@ public class PlayerController : SingletonMono<PlayerController>
             {
                 body2d.velocity = new Vector2(Mathf.MoveTowards(body2d.velocity.x,0,m_speed*Time.fixedDeltaTime/decelerateTIme), body2d.velocity.y);
             }
-        
+
+            // if (inputX != 0)
+            // {
+            //     if(m_speed<=OriginSpeedMax)
+            //         MusicManager.Instance.PlaySound("run_1");
+            //     else 
+            //         MusicManager.Instance.PlaySound("run_2");
+            // }
     }
     void Jump()
     {
@@ -242,6 +252,7 @@ public class PlayerController : SingletonMono<PlayerController>
         body2d.gravityScale = 0;
         UpdateJump();
         animator.SetTrigger("Jump");
+        MusicManager.Instance.PlaySound("jump");
         while (dis <= curJumpMin)
         {
             
