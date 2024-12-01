@@ -113,10 +113,11 @@ public class PlayerController : SingletonMono<PlayerController>
     {
         EventManager.Instance.InvokeEvent("player_press_L");
     }
-
+    
     public void OnInteract(InputValue value)
     {
         isInteracted = value.isPressed;
+        EventCenter.Instance.Invoke(EventName.NPCDialogue);
     }
     private void FixedUpdate()
     {
